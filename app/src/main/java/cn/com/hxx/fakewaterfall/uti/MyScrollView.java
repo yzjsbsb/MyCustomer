@@ -448,7 +448,7 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
 //    }
 
 
-    private LinearLayout findColumnToAdd(CommodityData commodityData) {
+    private LinearLayout findColumnToAdd(final CommodityData commodityData) {
 
         firstColumn.measure(0,0);
         secondColumn.measure(0,0);
@@ -456,6 +456,13 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
 
         if (firstColumn.getMeasuredHeight() <= secondColumn.getMeasuredHeight()) {
             View bigView = ((LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.big_item, firstColumn, false);
+
+            bigView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(), commodityData.getDesigner().getName(), Toast.LENGTH_SHORT).show();                }
+            });
+
             ImageView imageView2 = bigView.findViewById(R.id.iv_designer_avatar);
             Glide.with(getContext()).load(commodityData.getDesigner().getAvatar()).into(imageView2);
             TextView textView = bigView.findViewById(R.id.tv_designer);
@@ -480,6 +487,15 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
         } else {
 
             View smallView = ((LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.small_item, firstColumn, false);
+
+
+            smallView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(), commodityData.getDesigner().getName(), Toast.LENGTH_SHORT).show();                }
+            });
+
+
             ImageView imageView2 = smallView.findViewById(R.id.iv_designer_avatar);
             Glide.with(getContext()).load(commodityData.getDesigner().getAvatar()).into(imageView2);
             TextView textView = smallView.findViewById(R.id.tv_designer);
@@ -513,5 +529,10 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
 
     public void setOnLoadMoreListener(RequestLoadMoreListener requestLoadMoreListener) {
         this.requestLoadMoreListener = requestLoadMoreListener;
+    }
+
+
+    public interface itemClickListener{
+        void onItemClick();
     }
 }
