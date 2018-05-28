@@ -49,6 +49,10 @@ import cn.com.hxx.fakewaterfall.uti.httputil.data.StyleProductData;
  */
 
 public class MyScrollView extends ScrollView implements View.OnTouchListener {
+
+
+    private static RequestLoadMoreListener requestLoadMoreListener;
+
     /**
      * 每页要加载的图片数量
      */
@@ -137,7 +141,7 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
             if (scrollY == lastScrollY) {
                 // 当滚动的最底部，并且当前没有正在下载的任务时，开始加载下一页的图片
                 if (scrollViewHeight + scrollY >= scrollLayout.getHeight()) {
-            //        myScrollView.loadMoreImages();
+                    requestLoadMoreListener.onLoadMoreRequested();
                 }
         //        myScrollView.checkVisibility();
             } else {
@@ -516,5 +520,16 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
             imageViewList.add(smallView);
             return secondColumn;
         }
+    }
+
+    public interface RequestLoadMoreListener {
+
+        void onLoadMoreRequested();
+
+    }
+
+
+    public void setOnLoadMoreListener(RequestLoadMoreListener requestLoadMoreListener) {
+        this.requestLoadMoreListener = requestLoadMoreListener;
     }
 }
