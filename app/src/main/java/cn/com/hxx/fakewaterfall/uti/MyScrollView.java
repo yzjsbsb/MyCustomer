@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.com.hxx.fakewaterfall.R;
+import cn.com.hxx.fakewaterfall.uti.httputil.EmptyUtils;
 import cn.com.hxx.fakewaterfall.uti.httputil.MyUtils;
 import cn.com.hxx.fakewaterfall.uti.httputil.StylesManager;
 import cn.com.hxx.fakewaterfall.uti.httputil.data.CommodityData;
@@ -125,7 +126,7 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
                 if (scrollViewHeight + scrollY >= scrollLayout.getHeight()) {
                     requestLoadMoreListener.onLoadMoreRequested();
                 }
-        //        myScrollView.checkVisibility();
+                myScrollView.checkVisibility();
             } else {
                 lastScrollY = scrollY;
                 Message message = new Message();
@@ -213,16 +214,12 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
             ImageView imageView = view.findViewById(R.id.iv_cover);
             if (borderBottom > getScrollY()
                     && borderTop < getScrollY() + scrollViewHeight) {
-                String imageUrl = (String) imageView.getTag(R.string.image_url);
-                Bitmap bitmap = imageLoader.getBitmapFromMemoryCache(imageUrl);
-                if (bitmap != null) {
-                    imageView.setImageBitmap(bitmap);
-                } else {
-//                    LoadImageTask task = new LoadImageTask(imageView);
-//                    task.execute(imageUrl);
+                if (EmptyUtils.isEmpty(imageView.getDrawable())){
+                    String imageUrl = (String) view.getTag(R.string.image_url);
+                    Glide.with(getContext()).load(imageUrl).into(imageView);
                 }
             } else {
-                imageView.setImageResource(R.drawable.empty_photo);
+                imageView.setImageDrawable(null);
             }
         }
     }
@@ -479,10 +476,11 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
 
             firstColumn.addView(bigView);
 
-            bigView.setTag(R.string.border_top, firstColumn.getHeight());
-            bigView.setTag(R.string.border_bottom, firstColumn.getHeight());
-            //             bigView.setTag(R.string.image_url, mImageUrl);
+            bigView.setTag(R.string.border_top, firstColumn.getMeasuredHeight());
             imageViewList.add(bigView);
+            bigView.setTag(R.string.border_bottom, firstColumn.getMeasuredHeight()+402);
+            bigView.setTag(R.string.image_url, commodityData.getImage());
+
             return firstColumn;
         } else {
 
@@ -512,9 +510,9 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
 
 
             secondColumn.addView(smallView);
-            smallView.setTag(R.string.border_top, secondColumn.getHeight());
-            smallView.setTag(R.string.border_bottom, secondColumn.getHeight());
-
+            smallView.setTag(R.string.border_top, secondColumn.getMeasuredHeight());
+            smallView.setTag(R.string.border_bottom, secondColumn.getMeasuredHeight()+402);
+            smallView.setTag(R.string.image_url, commodityData.getImage());
             imageViewList.add(smallView);
             return secondColumn;
         }
@@ -534,5 +532,11 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
 
     public interface itemClickListener{
         void onItemClick();
+    }
+
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
     }
 }

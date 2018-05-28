@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
         my_scroll_view.setOnLoadMoreListener(new MyScrollView.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                page++;
                 getHotData();
             }
         });
