@@ -1,6 +1,227 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+
+    <!-- 最底层布局的颜色 -->
+    <color name="bg_layout">#F3F3F3</color>
+    <!-- 底层布局上的布局颜色-->
+    <color name="bg_white">#ffffff</color>
+
+    <color name="red">#C6081C</color>
+    <color name="black">#000000</color>
+    <!-- 最黑色黑色  一般不用-->
+    <color name="text_black_max">#000000</color>
+    <!-- 标题之类的黑色-->
+    <color name="text_black_second">#2e2e2e</color>
+    <color name="tab_selected">#2e2e2e</color>
+    <!-- 默认的颜色 -->
+    <color name="text_default">#737373</color>
+    <!-- 一般很小的提示文字或者hint-->
+    <color name="text_hint_or_small">#acacac</color>
+    <!-- 一般button上的颜色-->
+    <color name="text_white">#ffffff</color>
+
+    <!-- 评论 喜欢 之后颜色变化-->
+    <color name="ic_red">#C6081C</color>
+    <!--默认涟漪颜色-->
+    <color name="ripple">#eeeeee</color>
+    <!--#9FD7F0-->
+    <!--发送按下颜色-->
+    <color name="send_press">#D8D6D8</color>
+    <color name="colorPrimary">#ffffff</color>
+    <!--<color name="colorPrimaryDark">#EE7663</color>-->
+    <color name="colorAccent">#353535</color>
+    <!--FF6D5B-->
+    <color name="colorPrimaryDark">#2e2e2e</color>
+    <color name="colorPrimaryShallow">#55ec4b32</color>
+    <!--<color name="colorAccent">#ec4b32</color>-->
+    <!-- 一些drawable用到 -->
+    <color name="white">#ffffff</color>
+    <!-- 一般划线才用  或者disabled颜色 -->
+    <color name="gray">#DCDCDC</color>
+    <!--删除字体颜色-->
+    <color name="delete">#49b6ff</color>
+
+    <!--爬取文章间隙-->
+    <color name="outarticle_distance">#f1f2f7</color>
+
+    <!--banner背景颜色-->
+    <color name="banner_bg">#a9171717</color>
+    <!--小记栏，未选中标题颜色-->
+    <color name="unselected">#d2d2d2</color>
+    <!--小记内容字体颜色-->
+    <color name="note_color">#323232</color>
+    <!--小记引用文章标题颜色-->
+    <color name="note_apply_title">#6c6c6c</color>
+    <!--小记引用背景颜色-->
+    <color name="note_apply_bg">#f7f7f7</color>
+    <!--item之间的控线-->
+    <color name="item_distance">#f0f0f0</color>
+    <!--写文章按钮背景色-->
+    <color name="write_btn_gb">#353535</color>
+    <!--关注字体颜色-->
+    <color name="about_follow">#49b6ff</color>
+    <!--评论总数、喜欢总数字体颜色-->
+    <color name="like_comment_count">#969696</color>
+    <!--发送评论按钮bg-->
+    <color name="send_comment">#e7e7e7</color>
+
+    <!--    一些有点透明的颜色   -->
+    <color name="transparent">#00000000</color>
+    <color name="transparent_black">#99000000</color>
+    <color name="transparent_white">#99ffffff</color>
+
+    <!--赞赏人数颜色-->
+    <color name="giver">#6C7B8B</color>
+    <!--交易绿色-->
+    <color name="trans_green">#77AD68</color>
+    <!--交易红色-->
+    <color name="trans_red">#B4656F</color>
+    <color name="recharge_withdraw">#323232</color>
+    <!--关注 字体颜色-->
+    <color name="follow">#2B7EE2</color>
+    <!--浅灰色-->
+    <color name="light_grey">#D3D3D3</color>
+    <!--锁的点的颜色-->
+    <color name="pattern_color">#B1B1B1</color>
+    <!--消息界面右上角按钮字体颜色-->
+    <color name="marked_read_color">#929292</color>
+    <!--打赏/购买按钮背景颜色-->
+    <color name="buy_give_color">#ff6a6a</color>
+    <!--选择氧吧属性提示文字颜色-->
+    <color name="oxygen_bar_attr_tip">#f74800</color>
+    <!--选择氧吧属性提示背景-->
+    <color name="oxygen_bar_attr_bg">#f9e7dc</color>
+    <!--常见问题-->
+    <color name="oxygen_bar_notice">#466584</color>
+    <!--给氧吧起名字-->
+    <color name="bar_name">#9b9b9b</color>
+    <!--氧吧按钮字体颜色-->
+    <color name="bar_btn_color">#939393</color>
+    <!--氧吧警告分割线颜色-->
+    <color name="oxygenbar_notice_divider">#e4e4e4</color>
+
+    <!--氧吧警告字体颜色-->
+    <color name="oxygenbar_notice">#979797</color>
+    <!--氧吧"下一步"-->
+    <color name="oxygenbar_next">#979797</color>
+    <!--氧吧解散-->
+    <color name="bar_dismiss">#4A4A4A</color>
+    <!--听，标题-->
+    <color name="ting_title">#4F545B</color>
+    <!--听，时间-->
+    <color name="ting_time">#717884</color>
+    <!--听，发表时间-->
+    <color name="ting_publish">#9C9C9C</color>
+    <!--听，赞-->
+    <color name="ting_zan">#686E78</color>
+    <!--听，往期-->
+    <color name="ting_past">#cccccc</color>
+    <!--听，竖杠-->
+    <color name="ting_vertical">#EAEAEB</color>
+    <!--听，圆形播放器颜色-->
+    <color name="circle_progress">#FFd3d6da</color>
+    <!--me,头像item背景-->
+    <color name="me_avatar">#ffffff</color>
+    <!--氧吧item间隙颜色-->
+    <color name="oxybar_item_distance">#ffffff</color>
+    <!--氧吧创建字体颜色-->
+    <color name="create_bar_item">#d2d2d2</color>
+    <!--action_bar_title-->
+    <color name="action_bar_title">#2e2e2e</color>
+    <!--关注tab被选中字体颜色-->
+    <color name="follow_tab_selected">#ffffff</color>
+    <!--关注tab未被选中字体颜色-->
+    <color name="follow_tab_unselected">#2e2e2e</color>
+    <!--锁界面bg-->
+    <color name="lock_bg">#f1f2f7</color>
+    <!--banner的title颜色-->
+    <color name="banner_titile">#ffffff</color>
+    <!--写文章bg-->
+    <color name="artilce_write_bg">@null</color>
+    <!--文章详情评论数量item-->
+    <color name="article_comment_num">#f1f2f7</color>
+    <!--界面空余部分颜色-->
+    <color name="rest_part_bg">#f1f2f7</color>
+    <!--氧吧设置空白处-->
+    <color name="rest_part_bar_setting_bg">#f1f2f7</color>
+    <!--氧吧item空白处-->
+    <color name="bar_item_bg">#ffffff</color>
+    <!--氧吧item背景色-->
+    <color name="bar_item_background">#ffffff</color>
+    <!--氧吧item吧名-->
+    <color name="bar_item_name">#2e2e2e</color>
+    <!--氧吧item分割线-->
+    <color name="bar_item_divider">#acacac</color>
+    <!--文章类型选择框下部字体颜色-->
+    <color name="category_under_item_color">#2e2e2e</color>
+    <!--item之间的控线-->
+    <color name="one_line_item_distance">#f0f0f0</color>
+    <!--账户界面bg-->
+    <color name="account_bg">#f1f2f7</color>
+    <!--氧吧创建子控件bg-->
+    <color name="bar_create_item_bg">#ffffff</color>
+    <!--氧吧按钮bg-->
+    <color name="bar_btn_bg">#ffffff</color>
+    <!--fragment_ting_title-->
+    <color name="fragment_ting_title">#353535</color>
+    <!--充值金额选择按钮-->
+    <color name="charging_btn_bg_unchecked">#f0f0f0</color>
+    <!--充值金额选择按钮-->
+    <color name="charging_btn_bg_checked">#353535</color>
+    <!--充值金额自选框bg-->
+    <color name="charging_dialog">#ffffff</color>
+    <!--ting_播放器bg-->
+    <color name="ting_radio_bg">#ffffff</color>
+    <!--打赏金额显示-->
+    <color name="give_money_price">#000000</color>
+    <!--打赏框bg-->
+    <color name="give_money_bg">#f0f0f0</color>
+    <!--文章评论输入框bg-->
+    <color name="comment_tab_layout_content_bg">#ffffff</color>
+    <!--无内容时的文字颜色-->
+    <color name="emtpy_tips">#8A000000</color>
+    <!--"选择文章类型"颜色-->
+    <color name="article_category_select">#2e2e2e</color>
+    <!--弹出框message颜色-->
+    <color name="alert_message_color">#2e2e2e</color>
+    <!--充值框内部bg-->
+    <color name="charging_num_in">#ffffff</color>
+    <!--actionsheet字体颜色-->
+    <color name="action_sheet_words_color">#1E82FF</color>
+
+
+    <!--我奇颜色-->
+    <color name="me_header_bg">#323742</color>
+    <color name="me_bg_color">#F3F6F9</color>
+    <color name="custome_yellow1">#FFD700</color>
+    <color name="view_color_tint">#f8f8f8</color>
+    <color name="color_grey1">#D5D5D5</color>
+    <color name="color_grey2">#acacac</color>
+    <color name="color_black1">#343642</color>
+    <color name="color_black2">#2A2E37</color>
+    <color name="woqi_main_color">#ffffff</color>
+    <color name="address_default_green">#67a724</color>
+    <color name="invite_btn_press">#DD3334</color>
+    <color name="invite_btn_un">#F83E41</color>
+    <color name="invite_des">#49A0B9</color>
+    <color name="topic_default_bg">#2EA8D7</color>
+    <color name="income_bg">#4aaf0d</color>
+    <color name="bottom_trans">#80FFFFFF</color>
+    <color name="yellow1">#B9AE6D</color>
+    <color name="color_tip1">#DEDDE2</color>
+    <color name="splash_counter_bg">#448164</color>
+    <color name="second_default">#949DB1</color>
+    <color name="waiting_to_produce">#DC9041</color>
+    <color name="waiting_to_refund">#C3C3C3</color>
+    <color name="waiting_to_pay">#DC4E41</color>
+    <color name="detail_choose">#636A7E</color>
+    <color name="detail_choose_bg">#BAC1D5</color>
+    <color name="diy_finish_green">#56C215</color>
+    <color name="diy_finish_green_pressed">#4BAF10</color>
+    <color name="diy_finish_blue">#30A5E1</color>
+    <color name="diy_finish_blue_pressed">#2886B6</color>
+    <color name="t_recommend_word">#6D768A</color>
+    <color name="floating_btn_bg">#FED009</color>
+    <color name="like_red">#EE3939</color>
+
 </resources>

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -92,10 +94,6 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
      */
     private LinearLayout secondColumn;
 
-    /**
-     * 第三列的布局
-     */
-  //  private LinearLayout thirdColumn;
 
     /**
      * 记录所有正在下载或等待下载的任务。
@@ -340,13 +338,9 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
          *            图片的高度
          */
         private void addImage(Bitmap bitmap, int imageWidth, int imageHeight) {
-
-//            View bigView = ((LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.big_item, null, false);
-//            View smallView = ((LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.small_item, null, false);
-
-
+            imageHeight = imageHeight+ new Random().nextInt(73);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    imageWidth, imageHeight+ new Random().nextInt(73));
+                    imageWidth, imageHeight);
             if (mImageView != null) {
                 mImageView.setImageBitmap(bitmap);
             } else {
@@ -356,10 +350,13 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
                 imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                 imageView.setPadding(5, 5, 5, 5);
                 imageView.setTag(R.string.image_url, mImageUrl);
-                findColumnToAdd(imageView, imageHeight).addView(imageView);
+                findColumnToAdd(imageView, imageHeight);
                 imageViewList.add(imageView);
             }
         }
+
+
+
 
         /**
          * 找到此时应该添加图片的一列。原则就是对三列的高度进行判断，当前高度最小的一列就是应该添加的一列。
@@ -370,15 +367,35 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
          */
         private LinearLayout findColumnToAdd(ImageView imageView,
                                              int imageHeight) {
-            if (firstColumnHeight <= secondColumnHeight) {
-                imageView.setTag(R.string.border_top, firstColumnHeight);
-                firstColumnHeight += imageHeight;
-                imageView.setTag(R.string.border_bottom, firstColumnHeight);
+            if (firstColumn.getHeight() <= secondColumn.getHeight()) {
+                View bigView = ((LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.big_item, firstColumn, false);
+                ImageView imageView1 = bigView.findViewById(R.id.iv_cover);
+                imageView1.setImageDrawable(getContext().getResources().getDrawable(R.drawable.test1));
+
+                TextView textView = bigView.findViewById(R.id.tv_designer);
+                textView.setText("我是dsigner");
+                TextView tv_slogan = bigView.findViewById(R.id.tv_slogan);
+                tv_slogan.setText("tv_slogan");
+
+
+                firstColumn.addView(bigView);
+
+                imageView.setTag(R.string.border_top, firstColumn.getHeight());
+                imageView.setTag(R.string.border_bottom, firstColumn.getHeight());
+
                 return firstColumn;
             } else {
-                imageView.setTag(R.string.border_top, secondColumnHeight);
-                secondColumnHeight += imageHeight;
-                imageView.setTag(R.string.border_bottom, secondColumnHeight);
+
+                View smallView = ((LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.small_item, firstColumn, false);
+                ImageView imageView1 = smallView.findViewById(R.id.iv_cover);
+                imageView1.setImageDrawable(getContext().getResources().getDrawable(R.drawable.test1));
+                TextView textView = smallView.findViewById(R.id.tv_designer);
+                textView.setText("我是dsigner11");
+                TextView tv_slogan = smallView.findViewById(R.id.tv_slogan);
+                tv_slogan.setText("tv_slogan22");
+                secondColumn.addView(smallView);
+                imageView.setTag(R.string.border_top, secondColumn.getHeight());
+                imageView.setTag(R.string.border_bottom, secondColumn.getHeight());
                 return secondColumn;
             }
         }
@@ -410,13 +427,13 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
                 con.setDoOutput(true);
                 bis = new BufferedInputStream(con.getInputStream());
                 imageFile = new File(getImagePath(imageUrl));
-                fos = new FileOutputStream(imageFile);
-                bos = new BufferedOutputStream(fos);
+//                fos = new FileOutputStream(imageFile);
+//                bos = new BufferedOutputStream(fos);
                 byte[] b = new byte[1024];
                 int length;
                 while ((length = bis.read(b)) != -1) {
-                    bos.write(b, 0, length);
-                    bos.flush();
+//                    bos.write(b, 0, length);
+//                    bos.flush();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -426,7 +443,7 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
                         bis.close();
                     }
                     if (bos != null) {
-                        bos.close();
+                     //   bos.close();
                     }
                     if (con != null) {
                         con.disconnect();
