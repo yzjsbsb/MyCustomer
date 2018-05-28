@@ -5,6 +5,7 @@ import java.util.List;
 import cn.com.hxx.fakewaterfall.uti.httputil.data.CommodityData;
 import cn.com.hxx.fakewaterfall.uti.httputil.data.HomeData;
 import cn.com.hxx.fakewaterfall.uti.httputil.data.HomeNavButtonData;
+import cn.com.hxx.fakewaterfall.uti.httputil.data.StyleData;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -27,4 +28,8 @@ public interface MainWebInterface {
     //热门作品
     @GET("tshirts/explore")
     Call<HttpResult<List<CommodityData>>> getHotDesigns(@Query("page") int page, @Query("order") String order);
+
+    //
+    @GET("styles")
+    Call<HttpResult<List<StyleData>>> getStyles();
 }

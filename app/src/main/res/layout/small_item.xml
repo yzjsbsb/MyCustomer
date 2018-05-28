@@ -6,6 +6,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@color/diy_finish_green"
     android:gravity="center_horizontal">
     <RelativeLayout
         android:id="@+id/rl_king_bg"
@@ -18,7 +19,7 @@
         </RelativeLayout>
         <ImageView
             android:id="@+id/iv_cover"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             android:layout_centerInParent="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
