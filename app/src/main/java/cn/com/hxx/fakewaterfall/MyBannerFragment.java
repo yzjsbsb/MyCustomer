@@ -15,6 +15,7 @@ import cn.com.hxx.fakewaterfall.myView.banner.MyBanner;
 import cn.com.hxx.fakewaterfall.uti.httputil.HttpResult;
 import cn.com.hxx.fakewaterfall.uti.httputil.ICallback;
 import cn.com.hxx.fakewaterfall.uti.httputil.MyHttpUtils;
+import cn.com.hxx.fakewaterfall.uti.httputil.MyUtils;
 import cn.com.hxx.fakewaterfall.uti.httputil.data.BannerData;
 import cn.com.hxx.fakewaterfall.uti.httputil.data.HomeData;
 
@@ -66,6 +67,13 @@ public class MyBannerFragment extends Fragment {
         for (BannerData banner : banners) {
             images.add(banner.getBanner());
         }
+        myBanner.addOnBannerClickListenner(new MyBanner.BannerClickListenner() {
+            @Override
+            public void OnBannerItemClick(View view, int position) {
+                MyUtils.t(getContext(), "回调:" + position);
+            }
+        });
+
         myBanner.setLoader(new GlideImageViewLoader())
                 .setImageUrl(images)
                 .start();

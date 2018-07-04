@@ -49,6 +49,7 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
     private LinearLayout ll_indicator1;
 
     private List<ImageView> indicatorList;
+    private BannerClickListenner bannerClickListenner;
 
 
     private BannerViewLoaderInterface bannerViewLoaderInterface;
@@ -193,7 +194,7 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
             view.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    MyUtils.t(getContext(), position+"");
+                    bannerClickListenner.OnBannerItemClick(v, position);
                 }
             });
             view.setOnLongClickListener(new OnLongClickListener() {
@@ -275,5 +276,13 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
     public MyBanner setAutoPlay(boolean isAutoPlay_){
         this.isAutoPlay = isAutoPlay_;
         return this;
+    }
+
+    public interface BannerClickListenner{
+        void OnBannerItemClick(View view, int position);
+    }
+
+    public void addOnBannerClickListenner(BannerClickListenner bannerClickListenner_){
+        this.bannerClickListenner = bannerClickListenner_;
     }
 }
