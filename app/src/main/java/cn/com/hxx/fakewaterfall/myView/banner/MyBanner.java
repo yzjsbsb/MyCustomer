@@ -36,7 +36,7 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
     private List<View> viewList;
 
     private int currentItem = 1;
-    private boolean isAutoPlay;
+    private boolean isAutoPlay = true;
     private Handler mHandler = new Handler();
     private int delaytime = 2000;
     private int count;
@@ -85,10 +85,12 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
     }
 
     public void start(){
-        currentItem = 0;
+        currentItem = 1;
         loadImages();
         initAdapter();
-   //     startAutoPlay();
+        if (isAutoPlay){
+            startAutoPlay();
+        }
     }
 
     private void loadImages() {
@@ -149,7 +151,6 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
 
     public void startAutoPlay(){
         mHandler.removeCallbacks(task);
-        isAutoPlay = true;
         mHandler.postDelayed(task, delaytime);
     }
 
@@ -252,19 +253,27 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
     //用于控制轮播的暂停、开始
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        switch (event.getAction()){
-            case MotionEvent.ACTION_DOWN:
-                pauseAutoPlay();
-                break;
-            case MotionEvent.ACTION_UP:
-                startAutoPlay();
-                break;
+        if (isAutoPlay){
+            switch (event.getAction()){
+                case MotionEvent.ACTION_DOWN:
+                    pauseAutoPlay();
+                    break;
+                case MotionEvent.ACTION_UP:
+                    startAutoPlay();
+                    break;
+            }
         }
+
         return super.dispatchTouchEvent(event);
     }
 
     public MyBanner setLoader(BannerViewLoaderInterface bannerViewLoaderInterface_){
         this.bannerViewLoaderInterface = bannerViewLoaderInterface_;
+        return this;
+    }
+
+    public MyBanner setAutoPlay(boolean isAutoPlay_){
+        this.isAutoPlay = isAutoPlay_;
         return this;
     }
 }
