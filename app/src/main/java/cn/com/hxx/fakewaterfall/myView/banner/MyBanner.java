@@ -57,6 +57,7 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
 
     public MyBanner(@NonNull Context context) {
         super(context);
+        this.context = context;
     }
 
     public MyBanner(@NonNull Context context, @Nullable AttributeSet attrs) {
@@ -66,15 +67,17 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
 
     public MyBanner(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        this.context = context;
         initAttrs(attrs);
         initView();
     }
 
 
     private void initAttrs(AttributeSet attrs) {
-//        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.MyBanner);
-//
-//        ta.recycle();
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.MyBanner);
+        drawableSelected = ta.getResourceId(R.styleable.MyBanner_selected_icon, R.drawable.indicator_hui);
+        drawableUnselected = ta.getResourceId(R.styleable.MyBanner_unselected_icon, R.drawable.indicator_bai);
+        ta.recycle();
     }
 
     private void initView() {

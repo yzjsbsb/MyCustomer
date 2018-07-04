@@ -33,7 +33,10 @@
 
     <!--自定义banner-->
     <declare-styleable name="MyBanner">
-
+        <!--选中时的图标-->
+        <attr name="selected_icon" format="reference" />
+        <!--未选中时的图标-->
+        <attr name="unselected_icon" format="reference" />
     </declare-styleable>
 
 </resources>
