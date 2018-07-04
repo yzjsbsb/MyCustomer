@@ -50,6 +50,7 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
 
     private List<ImageView> indicatorList;
     private BannerClickListenner bannerClickListenner;
+    private BannerLongClickListenner bannerLongClickListenner;
 
 
     private BannerViewLoaderInterface bannerViewLoaderInterface;
@@ -194,14 +195,18 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
             view.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    bannerClickListenner.OnBannerItemClick(v, position);
+                    if (bannerClickListenner!= null){
+                        bannerClickListenner.OnBannerItemClick(v, position);
+                    }
                 }
             });
             view.setOnLongClickListener(new OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    MyUtils.t(getContext(), "Long:"+position);
-                    return false;
+                    if (bannerLongClickListenner != null){
+                        bannerLongClickListenner.OnBanneItemLongClick(v, position);
+                    }
+                    return true;    //返回true代表事件被消耗，false则会造成onClick的回调
                 }
             });
             container.addView(view);
@@ -284,5 +289,13 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
 
     public void addOnBannerClickListenner(BannerClickListenner bannerClickListenner_){
         this.bannerClickListenner = bannerClickListenner_;
+    }
+
+    public interface BannerLongClickListenner{
+        void OnBanneItemLongClick(View view, int position);
+    }
+
+    public void addOnBannerLongClickListenner(BannerLongClickListenner bannerLongClickListenner_){
+        this.bannerLongClickListenner = bannerLongClickListenner_;
     }
 }

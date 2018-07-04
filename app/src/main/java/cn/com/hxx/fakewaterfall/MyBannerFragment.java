@@ -73,6 +73,13 @@ public class MyBannerFragment extends Fragment {
                 MyUtils.t(getContext(), "回调:" + position);
             }
         });
+        myBanner.addOnBannerLongClickListenner(new MyBanner.BannerLongClickListenner() {
+            @Override
+            public void OnBanneItemLongClick(View view, int position) {
+                MyUtils.t(getContext(), "Long:" + position);
+            }
+        });
+
 
         myBanner.setLoader(new GlideImageViewLoader())
                 .setImageUrl(images)
