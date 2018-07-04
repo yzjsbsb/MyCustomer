@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.com.hxx.fakewaterfall.myView.banner.GlideImageViewLoader;
 import cn.com.hxx.fakewaterfall.myView.banner.MyBanner;
 import cn.com.hxx.fakewaterfall.uti.httputil.HttpResult;
 import cn.com.hxx.fakewaterfall.uti.httputil.ICallback;
@@ -65,6 +66,8 @@ public class MyBannerFragment extends Fragment {
         for (BannerData banner : banners) {
             images.add(banner.getBanner());
         }
-        myBanner.setImageUrl(images).start();
+        myBanner.setLoader(new GlideImageViewLoader())
+                .setImageUrl(images)
+                .start();
     }
 }

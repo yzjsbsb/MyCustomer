@@ -50,6 +50,9 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
 
     private List<ImageView> indicatorList;
 
+
+    private BannerViewLoaderInterface bannerViewLoaderInterface;
+
     public MyBanner(@NonNull Context context) {
         super(context);
     }
@@ -83,8 +86,32 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
 
     public void start(){
         currentItem = 0;
+        loadImages();
         initAdapter();
         startAutoPlay();
+    }
+
+    private void loadImages() {
+        //在原集合两端各增加一个
+        for (int i = 0; i <= count + 1 ; i++){
+            String url;
+            if (i == 0) {
+                url = imageList.get(count - 1);
+            } else if (i == count + 1) {
+                url = imageList.get(0);
+            } else {
+                url = imageList.get(i - 1);
+            }
+            ImageView imageView = new ImageView(context);
+            imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 20));
+            if (bannerViewLoaderInterface != null){
+                bannerViewLoaderInterface.loadView(getContext(), imageView, url);
+            }else {
+                Glide.with(context).load(url).into(imageView);
+            }
+            viewList.add(imageView);
+        }
+        initIndicator();
     }
 
     private void initAdapter() {
@@ -102,22 +129,6 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
     public MyBanner setImageUrl(List<String> imageList1){
         this.imageList = imageList1;
         count = imageList.size();
-        //在原集合两端各增加一个
-        for (int i = 0; i <= count + 1 ; i++){
-            String url;
-            if (i == 0) {
-                url = imageList.get(count - 1);
-            } else if (i == count + 1) {
-                url = imageList.get(0);
-            } else {
-                url = imageList.get(i - 1);
-            }
-            ImageView imageView = new ImageView(context);
-            imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 20));
-            Glide.with(context).load(url).into(imageView);
-            viewList.add(imageView);
-        }
-        initIndicator();
         return this;
     }
 
@@ -248,5 +259,10 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
                 break;
         }
         return super.dispatchTouchEvent(event);
+    }
+
+    public MyBanner setLoader(BannerViewLoaderInterface bannerViewLoaderInterface_){
+        this.bannerViewLoaderInterface = bannerViewLoaderInterface_;
+        return this;
     }
 }
