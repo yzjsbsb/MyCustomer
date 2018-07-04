@@ -11,4 +11,5 @@ public interface BannerViewLoaderInterface {
 
     void loadView(Context context, View view, Object object);
 
+    View createView(Context context);
 }

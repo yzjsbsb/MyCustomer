@@ -35,7 +35,7 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
     private List<String> imageList;
     private List<View> viewList;
 
-    private int currentItem;
+    private int currentItem = 1;
     private boolean isAutoPlay;
     private Handler mHandler = new Handler();
     private int delaytime = 2000;
@@ -88,7 +88,7 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
         currentItem = 0;
         loadImages();
         initAdapter();
-        startAutoPlay();
+   //     startAutoPlay();
     }
 
     private void loadImages() {
@@ -102,12 +102,14 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
             } else {
                 url = imageList.get(i - 1);
             }
-            ImageView imageView = new ImageView(context);
-            imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 20));
+            View imageView = null;
             if (bannerViewLoaderInterface != null){
+                imageView = bannerViewLoaderInterface.createView(getContext());
                 bannerViewLoaderInterface.loadView(getContext(), imageView, url);
             }else {
-                Glide.with(context).load(url).into(imageView);
+                imageView = new ImageView(getContext());
+                //默认使用Glide加载
+                Glide.with(context).load(url).into((ImageView) imageView);
             }
             viewList.add(imageView);
         }

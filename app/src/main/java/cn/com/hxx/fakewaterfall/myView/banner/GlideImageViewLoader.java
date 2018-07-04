@@ -17,4 +17,9 @@ public class GlideImageViewLoader implements BannerViewLoaderInterface {
                 .load((String)object)
                 .into((ImageView)view);
     }
+
+    @Override
+    public View createView(Context context) {
+        return new ImageView(context);
+    }
 }
