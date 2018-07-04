@@ -7,5 +7,33 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <declare-styleable name="MyExpannableLayout">
+        <attr name="num2show" format="integer"/>
+        <attr name="toshowWord" format="string"/>
+        <attr name="tohideWord" format="string"/>
+    </declare-styleable>
+
+
+    <!--圆形播放器-->
+    <declare-styleable name="ButtonCircleProgressBar">
+
+        <!--无进度时的颜色-->
+        <attr name="progress_unreached_color" format="color" />
+        <!--进度颜色-->
+        <attr name="progress_reached_color" format="color" />
+        <!--进度条的高-->
+        <attr name="progress_reached_bar_height" format="dimension" />
+        <!--无进度时的边框高-->
+        <attr name="progress_unreached_bar_height" format="dimension" />
+        <!--圆的半径-->
+        <attr name="radius" format="dimension" />
+    </declare-styleable>
+
+    <!--横向百分比进度条-->
+
+    <!--自定义banner-->
+    <declare-styleable name="MyBanner">
+
+    </declare-styleable>
 
 </resources>

@@ -1,33 +1,14 @@
-<cn.com.hxx.fakewaterfall.uti.MyScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/my_scroll_view"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <LinearLayout
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/me_bg_color">
+    <cn.com.hxx.fakewaterfall.myView.banner.MainViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/first_column"
-            android:paddingLeft="23dp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:orientation="vertical"
-            android:gravity="start">
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/second_column"
-            android:paddingRight="23dp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:orientation="vertical"
-            android:gravity="end">
-        </LinearLayout>
-    </LinearLayout>
-
-</cn.com.hxx.fakewaterfall.uti.MyScrollView>
+    </cn.com.hxx.fakewaterfall.myView.banner.MainViewPager>
+</LinearLayout>

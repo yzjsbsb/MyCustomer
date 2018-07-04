@@ -45,5 +45,7 @@ dependencies {
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.27'
 
     compile "com.android.support:gridlayout-v7:$ANDROID_LIB_VERSION"
+    compile "com.android.support:recyclerview-v7:$ANDROID_LIB_VERSION"
+
 
 }

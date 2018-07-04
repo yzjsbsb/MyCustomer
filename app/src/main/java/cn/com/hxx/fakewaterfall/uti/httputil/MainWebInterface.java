@@ -8,6 +8,7 @@ import cn.com.hxx.fakewaterfall.uti.httputil.data.HomeNavButtonData;
 import cn.com.hxx.fakewaterfall.uti.httputil.data.StyleData;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -27,9 +28,13 @@ public interface MainWebInterface {
 
     //热门作品
     @GET("tshirts/explore")
-    Call<HttpResult<List<CommodityData>>> getHotDesigns(@Query("page") int page, @Query("order") String order);
+    Call<HttpResult<List<CommodityData>>> getHotDesigns(@Query("page") int page, @Query("order") String order, @Query("count") int count);
 
     //
     @GET("styles")
     Call<HttpResult<List<StyleData>>> getStyles();
+
+    //商品详情
+    @GET("tshirts/{id}")
+    Call<HttpResult<CommodityData>> getCommodityDetail(@Path("id") int id);
 }
