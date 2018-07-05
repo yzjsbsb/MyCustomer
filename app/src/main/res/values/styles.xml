@@ -39,6 +39,8 @@
         <attr name="unselected_icon" format="reference" />
         <!--图标的宽度-->
         <attr name="indicatorSize" format="integer" />
+        <!--banner切换时的速度-->
+        <attr name="scroll_duration" format="integer"/>
     </declare-styleable>
 
 </resources>

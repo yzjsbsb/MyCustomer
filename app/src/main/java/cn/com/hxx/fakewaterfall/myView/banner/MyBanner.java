@@ -15,12 +15,14 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,15 +38,18 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
     private Context context;
     private List<String> imageList;
     private List<View> viewList;
-
+    private int lastPosition = 1;
     private int currentItem = 1;
     private boolean isAutoPlay = true;
     private Handler mHandler = new Handler();
-    private int delaytime = 2000;
     private int count;
+
+    private int delaytime = 2000;
     private int drawableUnselected = R.drawable.indicator_bai;
     private int drawableSelected = R.drawable.indicator_hui;
-    private int lastPosition = 1;
+    private DisplayMetrics dm;
+    private int indicatorSize;
+    private int scrollDuration = 300;
 
     private BannerViewPager viewPager;
     private MyBannerPagerAdapter myBannerPagerAdapter;
@@ -53,8 +58,6 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
     private List<ImageView> indicatorList;
     private BannerClickListenner bannerClickListenner;
     private BannerLongClickListenner bannerLongClickListenner;
-    private DisplayMetrics dm;
-    private int indicatorSize;
 
 
     private BannerViewLoaderInterface bannerViewLoaderInterface;
@@ -84,6 +87,7 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
         drawableSelected = ta.getResourceId(R.styleable.MyBanner_selected_icon, R.drawable.indicator_hui);
         drawableUnselected = ta.getResourceId(R.styleable.MyBanner_unselected_icon, R.drawable.indicator_bai);
         indicatorSize = ta.getDimensionPixelSize(R.styleable.MyBanner_indicatorSize, indicatorSize);
+        scrollDuration = ta.getInteger(R.styleable.MyBanner_scroll_duration, scrollDuration);
         ta.recycle();
     }
 
@@ -94,6 +98,20 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
         ll_indicator1 = view.findViewById(R.id.ll_indicator1);
         viewList = new ArrayList<>();
         indicatorList = new ArrayList<>();
+        changeScrollSpeed();
+    }
+
+    private void changeScrollSpeed() {
+        try {
+            Field field = ViewPager.class.getDeclaredField("mScroller");
+            field.setAccessible(true);
+            BannerScroller scroller = new BannerScroller(context,
+                    new AccelerateInterpolator());
+            field.set(viewPager, scroller);
+            scroller.setScrollDuration(scrollDuration);
+        } catch (Exception e) {
+
+        }
     }
 
     public void start(){
