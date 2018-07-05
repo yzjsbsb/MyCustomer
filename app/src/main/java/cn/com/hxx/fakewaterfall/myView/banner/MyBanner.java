@@ -89,6 +89,7 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
         drawableUnselected = ta.getResourceId(R.styleable.MyBanner_unselected_icon, R.drawable.indicator_bai);
         indicatorSize = ta.getDimensionPixelSize(R.styleable.MyBanner_indicatorSize, indicatorSize);
         scrollDuration = ta.getInteger(R.styleable.MyBanner_scroll_duration, scrollDuration);
+        delaytime = ta.getInteger(R.styleable.MyBanner_delaytime, delaytime);
         indicator_style = ta.getInt(R.styleable.MyBanner_indicator_style, indicator_style);
         ta.recycle();
     }

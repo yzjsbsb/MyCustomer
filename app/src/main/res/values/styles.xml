@@ -46,6 +46,8 @@
             <enum name="image" value="0"/>
             <enum name="num" value="1"/>
         </attr>
+        <!--banner每页停留时间-->
+        <attr name="delaytime" format="integer"/>
     </declare-styleable>
 
 </resources>
