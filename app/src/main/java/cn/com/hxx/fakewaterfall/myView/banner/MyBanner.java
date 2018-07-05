@@ -1,5 +1,6 @@
 package cn.com.hxx.fakewaterfall.myView.banner;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Handler;
@@ -9,6 +10,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -51,6 +53,8 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
     private List<ImageView> indicatorList;
     private BannerClickListenner bannerClickListenner;
     private BannerLongClickListenner bannerLongClickListenner;
+    private DisplayMetrics dm;
+    private int indicatorSize;
 
 
     private BannerViewLoaderInterface bannerViewLoaderInterface;
@@ -74,9 +78,12 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
 
 
     private void initAttrs(AttributeSet attrs) {
+        dm = context.getResources().getDisplayMetrics();
+        indicatorSize = dm.widthPixels/80;
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.MyBanner);
         drawableSelected = ta.getResourceId(R.styleable.MyBanner_selected_icon, R.drawable.indicator_hui);
         drawableUnselected = ta.getResourceId(R.styleable.MyBanner_unselected_icon, R.drawable.indicator_bai);
+        indicatorSize = ta.getDimensionPixelSize(R.styleable.MyBanner_indicatorSize, indicatorSize);
         ta.recycle();
     }
 
@@ -147,7 +154,8 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
             imageView.setImageDrawable(context.getResources().getDrawable(i == 0 ? drawableSelected : drawableUnselected));
             ll_indicator1.addView(imageView);
             LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
-            layoutParams.setMargins(10,0,0,0);
+            layoutParams.setMargins(0,0,10,0);
+            layoutParams.width = indicatorSize;
             imageView.setLayoutParams(layoutParams);
             indicatorList.add(imageView);
         }
