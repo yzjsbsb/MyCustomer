@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:selected_icon="@drawable/ic_banner_point"
-        app:unselected_icon="@drawable/ic_banner_point_un">
+        app:unselected_icon="@drawable/ic_banner_point_un"
+        app:indicator_style="image">
 
     </cn.com.hxx.fakewaterfall.myView.banner.MyBanner>
 </RelativeLayout>

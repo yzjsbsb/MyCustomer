@@ -1,6 +1,5 @@
 package cn.com.hxx.fakewaterfall.myView.banner;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Handler;
@@ -8,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -19,6 +17,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
@@ -27,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.com.hxx.fakewaterfall.R;
-import cn.com.hxx.fakewaterfall.uti.httputil.MyUtils;
 
 /**
  * Created by apple on 2018/7/2.
@@ -38,6 +36,7 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
     private Context context;
     private List<String> imageList;
     private List<View> viewList;
+    private List<ImageView> indicatorList;
     private int lastPosition = 1;
     private int currentItem = 1;
     private boolean isAutoPlay = true;
@@ -50,12 +49,14 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
     private DisplayMetrics dm;
     private int indicatorSize;
     private int scrollDuration = 300;
+    private int indicator_style = 0;    //0. 图案类型  1.数字类型eg:1/5
 
     private BannerViewPager viewPager;
     private MyBannerPagerAdapter myBannerPagerAdapter;
     private LinearLayout ll_indicator1;
+    private LinearLayout ll_indicator2;
+    private TextView tv_indicator;
 
-    private List<ImageView> indicatorList;
     private BannerClickListenner bannerClickListenner;
     private BannerLongClickListenner bannerLongClickListenner;
 
@@ -88,6 +89,7 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
         drawableUnselected = ta.getResourceId(R.styleable.MyBanner_unselected_icon, R.drawable.indicator_bai);
         indicatorSize = ta.getDimensionPixelSize(R.styleable.MyBanner_indicatorSize, indicatorSize);
         scrollDuration = ta.getInteger(R.styleable.MyBanner_scroll_duration, scrollDuration);
+        indicator_style = ta.getInt(R.styleable.MyBanner_indicator_style, indicator_style);
         ta.recycle();
     }
 
@@ -96,6 +98,8 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
         View view = layoutInflater.inflate(R.layout.mybanner_layout, this, true);       //将banner布局添加进framelayout
         viewPager = view.findViewById(R.id.vp_banner);
         ll_indicator1 = view.findViewById(R.id.ll_indicator1);
+        ll_indicator2 = view.findViewById(R.id.ll_indicator2);
+        tv_indicator = view.findViewById(R.id.tv_indicator);
         viewList = new ArrayList<>();
         indicatorList = new ArrayList<>();
         changeScrollSpeed();
@@ -167,15 +171,24 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
     }
 
     private void initIndicator() {
-        for (int i = 0; i < count ; i++){
-            ImageView imageView = new ImageView(context);
-            imageView.setImageDrawable(context.getResources().getDrawable(i == 0 ? drawableSelected : drawableUnselected));
-            ll_indicator1.addView(imageView);
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
-            layoutParams.setMargins(0,0,10,0);
-            layoutParams.width = indicatorSize;
-            imageView.setLayoutParams(layoutParams);
-            indicatorList.add(imageView);
+
+        switch (indicator_style){
+            case 0:
+                for (int i = 0; i < count ; i++){
+                    ll_indicator1.setVisibility(VISIBLE);
+                    ImageView imageView = new ImageView(context);
+                    imageView.setImageDrawable(context.getResources().getDrawable(i == 0 ? drawableSelected : drawableUnselected));
+                    ll_indicator1.addView(imageView);
+                    LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
+                    layoutParams.setMargins(0,0,10,0);
+                    layoutParams.width = indicatorSize;
+                    imageView.setLayoutParams(layoutParams);
+                    indicatorList.add(imageView);
+                }
+                break;
+            case 1:
+                ll_indicator2.setVisibility(VISIBLE);
+                break;
         }
     }
 
@@ -257,8 +270,15 @@ public class MyBanner extends FrameLayout implements ViewPager.OnPageChangeListe
     @Override
     public void onPageSelected(int position) {
         currentItem = position;
-        indicatorList.get((lastPosition - 1 + count) % count).setImageResource(drawableUnselected);
-        indicatorList.get((position - 1 + count) % count).setImageResource(drawableSelected);
+        switch (indicator_style){
+            case 0:
+                indicatorList.get((lastPosition - 1 + count) % count).setImageResource(drawableUnselected);
+                indicatorList.get((position - 1 + count) % count).setImageResource(drawableSelected);
+                break;
+            case 1:
+                tv_indicator.setText((((position - 1 + count) % count)+1)+"/"+(count));
+                break;
+        }
         lastPosition = position;
     }
 

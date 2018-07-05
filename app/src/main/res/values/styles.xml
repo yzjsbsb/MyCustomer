@@ -41,6 +41,11 @@
         <attr name="indicatorSize" format="integer" />
         <!--banner切换时的速度-->
         <attr name="scroll_duration" format="integer"/>
+        <!--indicator显示类型-->
+        <attr name="indicator_style" format="enum">
+            <enum name="image" value="0"/>
+            <enum name="num" value="1"/>
+        </attr>
     </declare-styleable>
 
 </resources>
