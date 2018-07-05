@@ -13,7 +13,7 @@
         android:id="@+id/ll_indicator1"
         android:layout_alignBottom="@+id/vp_banner"
         android:orientation="horizontal"
-        android:gravity="right"
+        android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </LinearLayout>
