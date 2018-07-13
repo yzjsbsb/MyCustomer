@@ -102,15 +102,23 @@ public class ButtonCircleProgressBar extends ProgressBar {
         int paintWidth = Math.max(progress_reached_bar_height, progress_unreached_bar_height);
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-        if (heightMode != MeasureSpec.EXACTLY){
-            exactlyHeight = getPaddingBottom() + getPaddingTop() + radius * 2 + paintWidth;
-            heightMeasureSpec = MeasureSpec.makeMeasureSpec(exactlyHeight, MeasureSpec.EXACTLY) + 10;
-        }
-        if (widthMode != MeasureSpec.EXACTLY){
-            exactlyWidth = getPaddingLeft() + getPaddingRight() + radius * 2 + paintWidth;
-            widthMeasureSpec = MeasureSpec.makeMeasureSpec(exactlyWidth, MeasureSpec.EXACTLY) + 10;
-        }
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+//        if (heightMode != MeasureSpec.EXACTLY){
+//            exactlyHeight = getPaddingBottom() + getPaddingTop() + radius * 2 + paintWidth;
+//            heightMeasureSpec = MeasureSpec.makeMeasureSpec(exactlyHeight, MeasureSpec.EXACTLY) + 10;
+//        }
+//        if (widthMode != MeasureSpec.EXACTLY){
+//            exactlyWidth = getPaddingLeft() + getPaddingRight() + radius * 2 + paintWidth;
+//            widthMeasureSpec = MeasureSpec.makeMeasureSpec(exactlyWidth, MeasureSpec.EXACTLY) + 10;
+//        }
+        exactlyHeight = getPaddingBottom() + getPaddingTop() + radius * 2 + paintWidth;
+        heightMeasureSpec = MeasureSpec.makeMeasureSpec(exactlyHeight, MeasureSpec.EXACTLY);
+        exactlyWidth = getPaddingLeft() + getPaddingRight() + radius * 2 + paintWidth;
+        widthMeasureSpec = MeasureSpec.makeMeasureSpec(exactlyWidth, MeasureSpec.EXACTLY);
+        exactlyHeight = resolveSize(exactlyHeight, heightMeasureSpec);      //resolveSize返回符合父View限制的修正之后的尺寸
+        exactlyWidth = resolveSize(exactlyWidth, widthMeasureSpec);
+
+    //    super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        setMeasuredDimension(exactlyWidth, exactlyHeight);      //保存尺寸
     }
 
     @Override
