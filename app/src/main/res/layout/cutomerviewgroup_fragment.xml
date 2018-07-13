@@ -7,6 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <cn.com.hxx.fakewaterfall.myView.CustomerViewGroup
+            android:padding="30dp"
             android:id="@+id/customerviewgroup"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
