@@ -29,11 +29,12 @@ public class MainActivity extends AppCompatActivity {
         fragmentList.add(CustomerViewFragment.getInstatnce());
         fragmentList.add(MyBannerFragment.getInstance());
         fragmentList.add(CustomerViewGroupFragment.getInstance());
+        fragmentList.add(CustomLayoutManagerFragemtn.getInstance());
         MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter(getSupportFragmentManager(), fragmentList);
         viewPager  = findViewById(R.id.viewPager);
         viewPager.setAdapter(myViewPagerAdapter);
         //设置每个fragment左右两边最多的缓存数量，这样，就不会反复重新加载fragment了
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(fragmentList.size() - 1);
 
     }
 }

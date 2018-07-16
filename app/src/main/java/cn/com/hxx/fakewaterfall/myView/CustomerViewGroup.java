@@ -25,10 +25,10 @@ public class CustomerViewGroup extends ViewGroup {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int maxHeight = 0;
-        int maxWidth = 0;
-        int currentRowWidth = 0;
-        int currentRowMaxHeight = 0;
+        int maxHeight = 0;  //customerviewgroup的总高度
+        int maxWidth = 0;   //customerviewgroup的总宽度
+        int currentRowWidth = 0;    //当前行的宽度
+        int currentRowMaxHeight = 0;   //当前行的item的最大高度
 
         int measureSpecWidth = MeasureSpec.getSize(widthMeasureSpec) - getPaddingLeft() - getPaddingRight();    //可用宽度需要加入两边的padding
 
