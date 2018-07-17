@@ -3,6 +3,7 @@ package cn.com.hxx.fakewaterfall.myView.layoutmanager;
 import android.content.Context;
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseArray;
 import android.util.SparseBooleanArray;
 import android.view.View;
@@ -48,12 +49,69 @@ public class CustomerLayoutManager extends RecyclerView.LayoutManager {
             measureChildWithMargins(viewForPosition, 0, 0);
             int decoratedMeasuredWidth = getDecoratedMeasuredWidth(viewForPosition);
             int decoratedMeasuredHeight = getDecoratedMeasuredHeight(viewForPosition);
-            layoutDecorated(viewForPosition, 0, offsetY, decoratedMeasuredWidth, offsetY + decoratedMeasuredHeight);
+    //        layoutDecorated(viewForPosition, 0, offsetY, decoratedMeasuredWidth, offsetY + decoratedMeasuredHeight);
+            //记录每个item的坐标位置
+            Rect rect = itemPositionSparseArray.get(i);
+            if (rect == null){
+                rect = new Rect();
+            }
+            rect.set(0, offsetY, decoratedMeasuredWidth, offsetY + decoratedMeasuredHeight);
+            itemPositionSparseArray.put(i, rect);
+
             offsetY += decoratedMeasuredHeight;
             totalHeight += decoratedMeasuredHeight;
         }
         totalHeight = Math.max(totalHeight, getVerticalSpace());
+        recycleAndFillitems(recycler, state);
     }
+
+    private void recycleAndFillitems(RecyclerView.Recycler recycler, RecyclerView.State state) {
+        if (state.isPreLayout()){
+            return;
+        }
+        //获得当前显示区域
+        Rect rect = new Rect(0, verticalScrollOffset, getHorizontalSpace(), verticalScrollOffset + getVerticalSpace() );
+        /*
+          将滑出屏幕的item收回
+         */
+        Rect childFrame = new Rect();
+        for (int i = 0; i < getChildCount(); i++){
+            View childAt = getChildAt(i);
+            childFrame.left = getDecoratedLeft(childAt);
+            childFrame.top = getDecoratedTop(childAt);
+            childFrame.right = getDecoratedRight(childAt);
+            childFrame.bottom = getDecoratedBottom(childAt);
+            if (!Rect.intersects(childFrame, rect)){
+                removeAndRecycleView(childAt, recycler);
+            }
+        }
+        //重新显示
+        for (int i = 0; i < getItemCount(); i++){
+            if (Rect.intersects(rect, itemPositionSparseArray.get(i))){
+                View viewForPosition = recycler.getViewForPosition(i);
+                measureChild(viewForPosition, 0, 0);
+                addView(viewForPosition);
+                Rect rect1 = itemPositionSparseArray.get(i);
+                layoutDecorated(viewForPosition, rect1.left, rect1.top - verticalScrollOffset, rect1.right, rect1.bottom - verticalScrollOffset);
+            }
+        }
+    }
+
+    /**
+     *
+     *
+     * //两列形式
+     if (i % 2 == 0){
+     //左列
+     layoutDecorated(viewForPosition, 0, offsetY, DensityUtils.getScreenWidth(context)/2, offsetY + decoratedMeasuredHeight);
+     totalHeight += decoratedMeasuredHeight;
+
+     }else {
+     //右列
+     layoutDecorated(viewForPosition, DensityUtils.getScreenWidth(context)/2, offsetY, DensityUtils.getScreenWidth(context), offsetY + decoratedMeasuredHeight);
+     offsetY += decoratedMeasuredHeight;//准备换行
+     }
+     */
 
     @Override
     public boolean canScrollVertically() {
@@ -78,11 +136,17 @@ public class CustomerLayoutManager extends RecyclerView.LayoutManager {
 
         // 平移容器内的item
         offsetChildrenVertical(-travel);
-
+        //随时检测item的显示与否
+        recycleAndFillitems(recycler, state);
+        Log.d("--->", " childView count:" + getChildCount());
         return travel;
     }
     //我们设置给recycleview的高度
     private int getVerticalSpace() {
         return getHeight() - getPaddingBottom() - getPaddingTop();
+    }
+
+    private int getHorizontalSpace() {
+        return getWidth() - getPaddingLeft() - getPaddingRight();
     }
 }

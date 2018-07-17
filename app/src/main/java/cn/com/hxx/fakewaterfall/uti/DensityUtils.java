@@ -1,7 +1,9 @@
 package cn.com.hxx.fakewaterfall.uti;
 
 import android.content.Context;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.WindowManager;
 
 /**
  * Created by apple on 2018/7/16.
@@ -39,5 +41,15 @@ public class DensityUtils {
      */
     public static float px2sp(Context context, float pxVal) {
         return (pxVal / context.getResources().getDisplayMetrics().scaledDensity);
+    }
+
+    /**
+     *获取屏幕宽度
+     */
+    public static int getScreenWidth(Context context) {
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics dm = new DisplayMetrics();// 创建了一张白纸
+        windowManager.getDefaultDisplay().getMetrics(dm);// 给白纸设置宽高
+        return dm.widthPixels;
     }
 }

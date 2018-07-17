@@ -11,9 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,28 +47,49 @@ public class CustomLayoutManagerFragemtn extends Fragment {
     private void initView() {
         activity = getActivity();
         recycle_view = activity.findViewById(R.id.recycle_view);
-        for (int i = 0 ; i < 30; i++){
+        for (int i = 0 ; i < 60; i++){
             String string = "我是" + i + "项";
             stringList.add(string);
         }
         recycle_view.setLayoutManager(new CustomerLayoutManager(getContext()));
         MyAdapter myAdapter = new MyAdapter();
-        myAdapter.addData(stringList);
         recycle_view.setAdapter(myAdapter);
 
         new LinearLayoutManager(getContext());
     }
 
+    class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
 
-    public class MyAdapter extends BaseQuickAdapter<String, BaseViewHolder>{
-
-        public MyAdapter() {
-            super(R.layout.customer_manager_item);
+        @Override
+        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View inflate = LayoutInflater.from(getContext()).inflate(R.layout.customer_manager_item, parent, false);
+            MyViewHolder myViewHolder = new MyViewHolder(inflate);
+            return myViewHolder;
         }
 
         @Override
-        protected void convert(BaseViewHolder helper, String item) {
-            helper.setText(R.id.tv_content, item);
+        public void onBindViewHolder(MyViewHolder holder, int position) {
+            String str = stringList.get(position);
+            holder.setContent(str);
+        }
+
+        @Override
+        public int getItemCount() {
+            return stringList.size();
+        }
+    }
+
+    static class MyViewHolder extends RecyclerView.ViewHolder{
+
+        private TextView tv_content;
+
+        public MyViewHolder(View itemView) {
+            super(itemView);
+            tv_content = itemView.findViewById(R.id.tv_content);
+        }
+
+        public void setContent(String str){
+            tv_content.setText(str);
         }
     }
 }
