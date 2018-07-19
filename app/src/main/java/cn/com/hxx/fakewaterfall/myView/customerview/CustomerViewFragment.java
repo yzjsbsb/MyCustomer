@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.com.hxx.fakewaterfall.R;
+import cn.com.hxx.fakewaterfall.myView.customerpopwin.CustomerPopWindow;
 import cn.com.hxx.fakewaterfall.uti.httputil.MyUtils;
 
 /**
@@ -45,6 +46,7 @@ public class CustomerViewFragment extends Fragment {
     private List<String> stringList = new ArrayList<>();
 
     private int pop1State;
+    CustomerPopWindow customerPopWindow;
 
     public static CustomerViewFragment getInstatnce(){
         CustomerViewFragment customerViewFragment = new CustomerViewFragment();
@@ -95,6 +97,11 @@ public class CustomerViewFragment extends Fragment {
         recycle_view.setLayoutManager(new LinearLayoutManager(getContext()));
         MyAdapter myAdapter = new MyAdapter();
         recycle_view.setAdapter(myAdapter);
+
+        customerPopWindow = new CustomerPopWindow.Builder(getContext())
+                .setSize(200, 200)
+                .setContentView(R.layout.pop_window_layout1)
+                .create();
     }
 
     private void initView() {
@@ -179,25 +186,25 @@ public class CustomerViewFragment extends Fragment {
         btn_pop1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (popupWindow1 == null)return;
+                if (customerPopWindow == null)return;
                 switch (pop1State % 6){
                     case 0 :
-                        popupWindow1.showAsDropDown(btn_pop1, 0 ,0);
+                        customerPopWindow.showAsDropDown(btn_pop1, 0 ,0);
                         break;
                     case 1:
-                        popupWindow1.dismiss();
+                        customerPopWindow.dismiss();
                         break;
                     case 2:
-                        popupWindow1.showAsDropDown(btn_pop1, 0, -btn_pop1.getHeight()*2);
+                        customerPopWindow.showAsDropDown(btn_pop1, 0, -btn_pop1.getHeight()*3);
                         break;
                     case 3:
-                        popupWindow1.dismiss();
+                        customerPopWindow.dismiss();
                         break;
                     case 4:
-                        popupWindow1.showAtLocation(rl_child, Gravity.CENTER, 0 ,0);
+                        customerPopWindow.showAtLocation(rl_child, Gravity.BOTTOM, 0 ,0);
                         break;
                     case 5:
-                        popupWindow1.dismiss();
+                        customerPopWindow.dismiss();
                         break;
                 }
                 pop1State++;
