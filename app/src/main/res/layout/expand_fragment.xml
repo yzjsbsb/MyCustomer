@@ -8,7 +8,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <cn.com.hxx.fakewaterfall.myView.MyExpannableLayout
+        <cn.com.hxx.fakewaterfall.myView.expandview.MyExpannableLayout
             android:id="@+id/ll_my"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
             app:toshowWord="显示更多"
             app:tohideWord="收起">
 
-        </cn.com.hxx.fakewaterfall.myView.MyExpannableLayout>
+        </cn.com.hxx.fakewaterfall.myView.expandview.MyExpannableLayout>
     </ScrollView>
 
 </LinearLayout>

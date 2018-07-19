@@ -1,4 +1,4 @@
-package cn.com.hxx.fakewaterfall;
+package cn.com.hxx.fakewaterfall.myView.layoutmanager;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,7 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.com.hxx.fakewaterfall.myView.layoutmanager.CustomerLayoutManager;
+import cn.com.hxx.fakewaterfall.R;
 
 /**
  * Created by apple on 2018/7/16.

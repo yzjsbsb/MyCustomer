@@ -1,4 +1,4 @@
-package cn.com.hxx.fakewaterfall.myView;
+package cn.com.hxx.fakewaterfall;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

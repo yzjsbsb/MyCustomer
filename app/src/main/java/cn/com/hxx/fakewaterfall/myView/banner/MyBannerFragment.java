@@ -1,4 +1,4 @@
-package cn.com.hxx.fakewaterfall;
+package cn.com.hxx.fakewaterfall.myView.banner;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.com.hxx.fakewaterfall.myView.banner.GlideImageViewLoader;
-import cn.com.hxx.fakewaterfall.myView.banner.MyBanner;
+import cn.com.hxx.fakewaterfall.R;
+import cn.com.hxx.fakewaterfall.myView.banner.imageloader.GlideImageViewLoader;
 import cn.com.hxx.fakewaterfall.uti.httputil.HttpResult;
 import cn.com.hxx.fakewaterfall.uti.httputil.ICallback;
 import cn.com.hxx.fakewaterfall.uti.httputil.MyHttpUtils;

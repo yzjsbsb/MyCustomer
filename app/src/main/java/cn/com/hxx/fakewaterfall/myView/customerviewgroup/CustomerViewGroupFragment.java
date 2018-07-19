@@ -1,4 +1,4 @@
-package cn.com.hxx.fakewaterfall;
+package cn.com.hxx.fakewaterfall.myView.customerviewgroup;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import java.util.Random;
 
-import cn.com.hxx.fakewaterfall.myView.CustomerViewGroup;
+import cn.com.hxx.fakewaterfall.R;
 import cn.com.hxx.fakewaterfall.uti.httputil.MyUtils;
 
 /**

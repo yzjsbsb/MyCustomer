@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/me_bg_color">
-    <cn.com.hxx.fakewaterfall.myView.banner.MainViewPager
+    <cn.com.hxx.fakewaterfall.MainViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </cn.com.hxx.fakewaterfall.myView.banner.MainViewPager>
+    </cn.com.hxx.fakewaterfall.MainViewPager>
 </LinearLayout>

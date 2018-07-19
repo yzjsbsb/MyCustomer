@@ -26,6 +26,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.com.hxx.fakewaterfall.R;
+import cn.com.hxx.fakewaterfall.myView.banner.imageloader.BannerViewLoaderInterface;
+import cn.com.hxx.fakewaterfall.myView.banner.modules.BannerScroller;
+import cn.com.hxx.fakewaterfall.myView.banner.modules.BannerViewPager;
 
 /**
  * Created by apple on 2018/7/2.

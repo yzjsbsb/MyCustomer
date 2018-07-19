@@ -8,7 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.com.hxx.fakewaterfall.myView.MyViewPagerAdapter;
+import cn.com.hxx.fakewaterfall.myView.banner.MyBannerFragment;
+import cn.com.hxx.fakewaterfall.myView.customerview.CustomerViewFragment;
+import cn.com.hxx.fakewaterfall.myView.customerviewgroup.CustomerViewGroupFragment;
+import cn.com.hxx.fakewaterfall.myView.expandview.ExpandFragment;
+import cn.com.hxx.fakewaterfall.myView.layoutmanager.CustomLayoutManagerFragemtn;
 import cn.com.hxx.fakewaterfall.uti.httputil.MyConstantUtils;
 
 public class MainActivity extends AppCompatActivity {

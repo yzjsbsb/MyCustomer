@@ -1,4 +1,4 @@
-package cn.com.hxx.fakewaterfall;
+package cn.com.hxx.fakewaterfall.myView.customerview;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,8 +20,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.com.hxx.fakewaterfall.myView.ButtonCircleProgressBar;
-import cn.com.hxx.fakewaterfall.myView.layoutmanager.CustomerLayoutManager;
+import cn.com.hxx.fakewaterfall.R;
 import cn.com.hxx.fakewaterfall.uti.httputil.MyUtils;
 
 /**

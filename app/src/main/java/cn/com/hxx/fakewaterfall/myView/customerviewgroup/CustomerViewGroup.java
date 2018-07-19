@@ -1,4 +1,4 @@
-package cn.com.hxx.fakewaterfall.myView;
+package cn.com.hxx.fakewaterfall.myView.customerviewgroup;
 
 import android.content.Context;
 import android.util.AttributeSet;

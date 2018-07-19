@@ -1,4 +1,4 @@
-package cn.com.hxx.fakewaterfall.myView.banner;
+package cn.com.hxx.fakewaterfall.myView.banner.imageloader;
 
 import android.content.Context;
 import android.view.View;

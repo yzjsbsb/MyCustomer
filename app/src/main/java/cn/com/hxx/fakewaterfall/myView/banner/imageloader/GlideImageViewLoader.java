@@ -1,10 +1,12 @@
-package cn.com.hxx.fakewaterfall.myView.banner;
+package cn.com.hxx.fakewaterfall.myView.banner.imageloader;
 
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+
+import cn.com.hxx.fakewaterfall.myView.banner.imageloader.BannerViewLoaderInterface;
 
 /**
  * Created by apple on 2018/7/4.
