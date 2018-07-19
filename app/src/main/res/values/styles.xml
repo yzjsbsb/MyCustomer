@@ -75,4 +75,11 @@
         <!-- 窗口的背景颜色 -->
         <item name="android:windowBackground">@color/bg_layout</item>
     </style>
+
+
+    <!--进入、退出动画-->
+    <style name="anim_menu_bottombar">
+        <item name="android:windowEnterAnimation">@anim/pop_in</item>
+        <item name="android:windowExitAnimation">@anim/pop_out</item>
+    </style>
 </resources>
