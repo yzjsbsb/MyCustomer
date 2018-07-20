@@ -101,6 +101,7 @@ public class CustomerViewFragment extends Fragment {
         customerPopWindow = new CustomerPopWindow.Builder(getContext())
                 .setSize(200, 200)
                 .setContentView(popWin1)
+                .setBgDarkAlpha(1.1f)
                 .setAnimationStyle(R.style.anim_menu_bottombar)
                 .create();
     }

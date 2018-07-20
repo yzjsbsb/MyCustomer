@@ -1,10 +1,13 @@
 package cn.com.hxx.fakewaterfall.myView.customerpopwin;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.PopupWindow;
 
 /**
@@ -22,7 +25,9 @@ public class CustomerPopWindow {
     private boolean outSidetouchable;
     private Drawable background;
     private int animation;
-
+    private float darkAlpha;
+    private Window mWindow;//当前Activity 的窗口
+    private static final float DEFAULT_ALPHA = 0.7f;
     private Context context;
 
     public CustomerPopWindow(Context context_) {
@@ -30,10 +35,13 @@ public class CustomerPopWindow {
     }
 
     public void showAsDropDown(View anchor){
+        setBackgroundDarkness();
         mPopupWindow.showAsDropDown(anchor);
     }
 
+
     public void showAsDropDown(View anchor, int offx, int offy){
+        setBackgroundDarkness();
         mPopupWindow.showAsDropDown(anchor, offx, offy);
     }
 
@@ -41,10 +49,30 @@ public class CustomerPopWindow {
 //        mPopupWindow.showAsDropDown(anchor, offx, offy, gravity);
 //    }
     public void showAtLocation(View parent, int gravity, int offx, int offy){
+        setBackgroundDarkness();
         mPopupWindow.showAtLocation(parent, gravity,offx, offy);
     }
 
+    private void setBackgroundDarkness() {
+        //设置背景暗度
+        if (darkAlpha != 0){
+            Activity activity = (Activity)context;
+            final  float alpha = (darkAlpha > 0 && darkAlpha < 1) ? darkAlpha : DEFAULT_ALPHA;
+            mWindow = activity.getWindow();
+            WindowManager.LayoutParams params = mWindow.getAttributes();
+            params.alpha = alpha;
+            mWindow.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            mWindow.setAttributes(params);
+        }
+    }
+
     public void dismiss(){
+        //如果设置了背景变暗，那么在dissmiss的时候需要还原
+        if(mWindow!=null){
+            WindowManager.LayoutParams params = mWindow.getAttributes();
+            params.alpha = 1.0f;
+            mWindow.setAttributes(params);
+        }
         mPopupWindow.dismiss();
     }
 
@@ -119,6 +147,12 @@ public class CustomerPopWindow {
 
         public Builder setAnimationStyle(int animation){
             customerPopWindow.animation = animation;
+            return this;
+        }
+
+        //弹出时，背景变暗
+        public Builder setBgDarkAlpha(float darkAlpha){
+            customerPopWindow.darkAlpha = darkAlpha;
             return this;
         }
 
