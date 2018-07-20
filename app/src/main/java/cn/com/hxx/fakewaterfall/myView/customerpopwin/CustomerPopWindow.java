@@ -1,6 +1,7 @@
 package cn.com.hxx.fakewaterfall.myView.customerpopwin;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +15,13 @@ public class CustomerPopWindow {
 
     private int winWidth;
     private int winHeight;
-    private int resourceId;
+    private View contentView;
     private PopupWindow mPopupWindow;
+    private boolean focusable;
+    private boolean touchable;
+    private boolean outSidetouchable;
+    private Drawable background;
+    private int animation;
 
     private Context context;
 
@@ -51,13 +57,25 @@ public class CustomerPopWindow {
         mPopupWindow.setHeight(winHeight == 0 ? ViewGroup.LayoutParams.WRAP_CONTENT : winHeight);
         mPopupWindow.setWidth(winWidth == 0 ? ViewGroup.LayoutParams.WRAP_CONTENT : winWidth);
         //设置View
-        View inflate = LayoutInflater.from(context).inflate(resourceId, null);
-        mPopupWindow.setContentView(inflate);
+        mPopupWindow.setContentView(contentView);
 
-
+        setAble();
+        //设置背景
+        if (background != null){
+            mPopupWindow.setBackgroundDrawable(background);
+        }
+        //设置动画
+        if (animation != 0){
+            mPopupWindow.setAnimationStyle(animation);
+        }
         return mPopupWindow;
     }
 
+    private void setAble() {
+        mPopupWindow.setFocusable(focusable);
+        mPopupWindow.setTouchable(touchable);
+        mPopupWindow.setOutsideTouchable(outSidetouchable);
+    }
 
 
     public static class Builder{
@@ -66,7 +84,6 @@ public class CustomerPopWindow {
 
         public Builder(Context context){
             customerPopWindow = new CustomerPopWindow(context);
-            PopupWindow popupWindow = new PopupWindow();
         }
 
         public Builder setSize(int winWidth, int winHeight){
@@ -75,8 +92,33 @@ public class CustomerPopWindow {
             return this;
         }
 
-        public Builder setContentView(int resourceId){
-            customerPopWindow.resourceId = resourceId;
+        public Builder setContentView(View contentView){
+            customerPopWindow.contentView = contentView;
+            return this;
+        }
+
+        public Builder setFocusable(boolean focusable){
+            customerPopWindow.focusable = focusable;
+            return this;
+        }
+
+        public Builder setTouchable(boolean touchable){
+            customerPopWindow.touchable = touchable;
+            return this;
+        }
+
+        public Builder setOutsideTouchable(boolean outSidetouchable){
+            customerPopWindow.outSidetouchable = outSidetouchable;
+            return this;
+        }
+
+        public Builder setBackgroundDrawable(Drawable background){
+            customerPopWindow.background = background;
+            return this;
+        }
+
+        public Builder setAnimationStyle(int animation){
+            customerPopWindow.animation = animation;
             return this;
         }
 

@@ -100,7 +100,8 @@ public class CustomerViewFragment extends Fragment {
 
         customerPopWindow = new CustomerPopWindow.Builder(getContext())
                 .setSize(200, 200)
-                .setContentView(R.layout.pop_window_layout1)
+                .setContentView(popWin1)
+                .setAnimationStyle(R.style.anim_menu_bottombar)
                 .create();
     }
 
@@ -261,17 +262,25 @@ public class CustomerViewFragment extends Fragment {
         }
     }
 
-    static class MyViewHolder extends RecyclerView.ViewHolder{
+     class MyViewHolder extends RecyclerView.ViewHolder{
 
         private TextView tv_content;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             tv_content = itemView.findViewById(R.id.tv_content);
+
         }
 
         public void setContent(String str){
+            final String content = str;
             tv_content.setText(str);
+            tv_content.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MyUtils.t(getContext(), "点击了" + content );
+                }
+            });
         }
     }
 }
