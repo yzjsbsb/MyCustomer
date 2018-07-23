@@ -1,5 +1,6 @@
 package cn.com.hxx.fakewaterfall.myView.customerview;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -22,7 +23,9 @@ import java.util.List;
 
 import cn.com.hxx.fakewaterfall.R;
 import cn.com.hxx.fakewaterfall.myView.customerpopwin.CustomerPopWindow;
-import cn.com.hxx.fakewaterfall.uti.httputil.MyUtils;
+import cn.com.hxx.fakewaterfall.myView.memoleak.LeakActivity;
+import cn.com.hxx.fakewaterfall.uti.MyActivityManager;
+import cn.com.hxx.fakewaterfall.uti.MyUtils;
 
 /**
  * Created by apple on 2018/6/28.
@@ -44,6 +47,7 @@ public class CustomerViewFragment extends Fragment {
 
     private boolean isShowPop2 = false;
     private List<String> stringList = new ArrayList<>();
+    boolean in = true;
 
     private int pop1State;
     CustomerPopWindow customerPopWindow;
@@ -157,11 +161,20 @@ public class CustomerViewFragment extends Fragment {
                 MyUtils.f("rl_parent: click");
             }
         });
+
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //       MyUtils.t(getContext(),"button1: click");
-                MyUtils.f("button1: click");
+                //MyUtils.f("button1: click");
+                if(in){
+                    startActivity(new Intent(getActivity(), LeakActivity.class));
+                    in = false;
+                }else {
+
+                    MyUtils.t(getContext(), LeakActivity.sInfo.getActivity().toString());
+                }
+
             }
         });
         iv_image.setOnClickListener(new View.OnClickListener() {

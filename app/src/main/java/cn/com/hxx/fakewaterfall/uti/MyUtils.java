@@ -1,4 +1,4 @@
-package cn.com.hxx.fakewaterfall.uti.httputil;
+package cn.com.hxx.fakewaterfall.uti;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -23,6 +23,9 @@ import java.util.List;
 
 import cn.com.hxx.fakewaterfall.R;
 import cn.com.hxx.fakewaterfall.uti.bean.BigPack;
+import cn.com.hxx.fakewaterfall.uti.httputil.EmptyUtils;
+import cn.com.hxx.fakewaterfall.uti.httputil.MyConstantUtils;
+import cn.com.hxx.fakewaterfall.uti.httputil.MyOKHttp;
 import cn.com.hxx.fakewaterfall.uti.httputil.data.StyleProductData;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

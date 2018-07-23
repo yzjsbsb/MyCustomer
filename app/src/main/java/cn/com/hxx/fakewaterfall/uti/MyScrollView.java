@@ -1,7 +1,6 @@
 package cn.com.hxx.fakewaterfall.uti;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
@@ -22,7 +21,6 @@ import java.util.List;
 
 import cn.com.hxx.fakewaterfall.R;
 import cn.com.hxx.fakewaterfall.uti.httputil.EmptyUtils;
-import cn.com.hxx.fakewaterfall.uti.httputil.MyUtils;
 import cn.com.hxx.fakewaterfall.uti.httputil.StylesManager;
 import cn.com.hxx.fakewaterfall.uti.httputil.data.CommodityData;
 import cn.com.hxx.fakewaterfall.uti.httputil.data.StyleProductData;

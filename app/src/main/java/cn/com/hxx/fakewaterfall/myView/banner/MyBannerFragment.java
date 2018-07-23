@@ -15,7 +15,7 @@ import cn.com.hxx.fakewaterfall.myView.banner.imageloader.GlideImageViewLoader;
 import cn.com.hxx.fakewaterfall.uti.httputil.HttpResult;
 import cn.com.hxx.fakewaterfall.uti.httputil.ICallback;
 import cn.com.hxx.fakewaterfall.uti.httputil.MyHttpUtils;
-import cn.com.hxx.fakewaterfall.uti.httputil.MyUtils;
+import cn.com.hxx.fakewaterfall.uti.MyUtils;
 import cn.com.hxx.fakewaterfall.uti.httputil.data.BannerData;
 import cn.com.hxx.fakewaterfall.uti.httputil.data.HomeData;
 

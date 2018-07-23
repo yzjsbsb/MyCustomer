@@ -13,7 +13,7 @@ import android.widget.TextView;
 import java.util.Random;
 
 import cn.com.hxx.fakewaterfall.R;
-import cn.com.hxx.fakewaterfall.uti.httputil.MyUtils;
+import cn.com.hxx.fakewaterfall.uti.MyUtils;
 
 /**
  * Created by apple on 2018/7/13.

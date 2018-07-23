@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.com.hxx.fakewaterfall.base.BaseActivity;
 import cn.com.hxx.fakewaterfall.myView.banner.MyBannerFragment;
 import cn.com.hxx.fakewaterfall.myView.customerview.CustomerViewFragment;
 import cn.com.hxx.fakewaterfall.myView.customerviewgroup.CustomerViewGroupFragment;
@@ -15,7 +17,7 @@ import cn.com.hxx.fakewaterfall.myView.expandview.ExpandFragment;
 import cn.com.hxx.fakewaterfall.myView.layoutmanager.CustomLayoutManagerFragemtn;
 import cn.com.hxx.fakewaterfall.uti.httputil.MyConstantUtils;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     ViewPager viewPager;
     private List<Fragment> fragmentList = new ArrayList<>();
@@ -23,9 +25,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         MyConstantUtils.init();
         initView();
+    }
+
+    @Override
+    public int setLayoutView() {
+        return R.layout.activity_main;
     }
 
     private void initView() {
