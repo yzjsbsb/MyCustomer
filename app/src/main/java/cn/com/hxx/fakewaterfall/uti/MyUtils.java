@@ -1,12 +1,21 @@
 package cn.com.hxx.fakewaterfall.uti;
 
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,9 +27,13 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
+import cn.com.hxx.fakewaterfall.MainActivity;
+import cn.com.hxx.fakewaterfall.MyAnotation.MyAnotation;
 import cn.com.hxx.fakewaterfall.R;
 import cn.com.hxx.fakewaterfall.uti.bean.BigPack;
 import cn.com.hxx.fakewaterfall.uti.httputil.EmptyUtils;
@@ -160,82 +173,56 @@ public class MyUtils {
     }
 
 
-    private static List<View> bigList = new ArrayList<>();
-    private static List<View> smallList = new ArrayList<>();
-
-    public static void saveItem(String type, View view){
-        if (type.equalsIgnoreCase("big")){
-            if (bigList.size() == 0){
-                bigList.add(view);
-            }
-        }else if (type.equalsIgnoreCase("small")){
-            if (smallList.size() == 0){
-                smallList.add(view);
-            }
-        }
-    }
-
-    public static View getItem(String type){
-        if (type.equalsIgnoreCase("big")){
-            if (bigList.size() != 0){
-                return bigList.remove(0);
-            }
-            return null;
-        }else  if(type.equalsIgnoreCase("small")){
-            if (smallList.size() != 0){
-                return smallList.remove(0);
-            }
-            return null;
-        }
-        return null;
-    }
-
-
-
-    public static <T> boolean needLoadData(BaseQuickAdapter mQuickAdapter, BigPack result, int page, Context context, int empty_drawable, String empty_tips) {
-        mQuickAdapter.addData(result);
-        boolean hasContent = hasContent(page, result.getList().size());
-        if (hasContent) {
-            if (result.getList().size() < 10) {
-                View footerView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.usage_footer, null, false);
-                mQuickAdapter.addFooterView(footerView);
-                mQuickAdapter.setEnableLoadMore(false);
-                mQuickAdapter.loadMoreEnd();
-                return false;
-            } else {
-                mQuickAdapter.loadMoreComplete();
-                return true;
-            }
-        } else {
-            View inflate = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_empty_tips, null, false);
-            inflate.setVisibility(View.VISIBLE);
-            if (empty_drawable == 0) {
-                ((ImageView) (inflate.findViewById(R.id.no_content_image))).setImageDrawable(ContextCompat.getDrawable(context, R.drawable.no_consume));
-            } else {
-                ((ImageView) (inflate.findViewById(R.id.no_content_image))).setImageDrawable(ContextCompat.getDrawable(context, empty_drawable));
-            }
-            if (empty_tips == null) {
-                ((TextView) (inflate.findViewById(R.id.no_content_text))).setText("还没有评论哦");
-            } else {
-                ((TextView) (inflate.findViewById(R.id.no_content_text))).setText(empty_tips);
-            }
-            mQuickAdapter.loadMoreComplete();
-            mQuickAdapter.addFooterView(inflate);
-
-            return false;
-        }
-    }
-
-
-    public static boolean hasContent(int page, int size) {
-        return !(page == 1 && size == 0);
-    }
-
     public static void t(Context context, String str){
         Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
     }
 
     public static void f(String str){
         Log.e("HXX", str);
+    }
+
+    public static void generateButton(final ViewGroup ll_container, final Context context, String methodTag, @Nullable final int fragmentContainer){
+        //利用反射获取所在类中"start"开头的方法
+        List<Method> methodList = new ArrayList<>();
+        for (Method method : context.getClass().getMethods()){
+            if (method.getName().startsWith(methodTag)){
+                methodList.add(method);
+            }
+        }
+        //对methodList进行排序,用以确定button生成对顺序
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            methodList.sort(new Comparator<Method>() {
+                @Override
+                public int compare(Method o1, Method o2) {
+                    MyAnotation annotation1 = o1.getAnnotation(MyAnotation.class);
+                    MyAnotation annotation2 = o2.getAnnotation(MyAnotation.class);
+                    return annotation1.order() > annotation2.order()? 1 : 0;
+                }
+            });
+        }
+        //生成button并利用反射添加button点击效果
+        for (final Method method : methodList){
+            Button button = new Button(context);
+            button.setText(method.getName());
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        Object invoke = method.invoke(context);
+                        if (invoke != null && invoke instanceof Fragment){
+                            Fragment fragment = (Fragment)invoke;
+                            FragmentManager supportFragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
+                            FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+                            fragmentTransaction.add(fragmentContainer, fragment);
+                            fragmentTransaction.addToBackStack("sdfasdf");   //按back时，不是activity销毁，而是fragment销毁
+                            fragmentTransaction.commit();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            ll_container.addView(button);
+        }
     }
 }

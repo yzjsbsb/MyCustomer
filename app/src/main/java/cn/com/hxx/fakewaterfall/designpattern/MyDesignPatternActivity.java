@@ -10,18 +10,24 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.com.hxx.fakewaterfall.MyAnotation.MyAnotation;
 import cn.com.hxx.fakewaterfall.R;
 import cn.com.hxx.fakewaterfall.base.BaseActivity;
 import cn.com.hxx.fakewaterfall.designpattern.observer.ObserverFragment;
+import cn.com.hxx.fakewaterfall.uti.MyUtils;
 
 /**
  * Created by apple on 2018/7/26.
  */
 
-public class MyDesignPatternActivity extends BaseActivity implements View.OnClickListener {
+public class MyDesignPatternActivity extends BaseActivity {
 
-    FrameLayout ll_container;
-    Button btn_observer;
+    FrameLayout fr_container;
+    LinearLayout ll_container;
     ScrollView scrollView;
 
     @Override
@@ -38,21 +44,24 @@ public class MyDesignPatternActivity extends BaseActivity implements View.OnClic
     private void initView() {
         scrollView = findViewById(R.id.scrollView);
         ll_container = findViewById(R.id.ll_container);
-        btn_observer = findViewById(R.id.btn_observer);
-        btn_observer.setOnClickListener(this);
+        fr_container = findViewById(R.id.fr_container);
+        MyUtils.generateButton(ll_container, this, "Pattern_", R.id.fr_container);
+
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btn_observer:
-                ObserverFragment observerFragment = ObserverFragment.getInstatnce();
-                FragmentManager supportFragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.ll_container, observerFragment);
-                fragmentTransaction.addToBackStack("btn_observer");
-                fragmentTransaction.commit();
-                break;
-        }
+
+    @MyAnotation(order = 1)
+    public ObserverFragment Pattern_Observer(){
+        return ObserverFragment.getInstatnce();
+    }
+
+    @MyAnotation(order = 2)
+    public void Pattern_Singleton(){
+        MyUtils.t(this, "看代码");
+    }
+
+    @MyAnotation(order = 3)
+    public void Pattern_Builder(){
+        MyUtils.t(this, "看代码");
     }
 }
