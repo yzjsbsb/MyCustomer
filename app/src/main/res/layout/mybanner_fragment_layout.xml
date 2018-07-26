@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <cn.com.hxx.fakewaterfall.myView.banner.MyBanner
+    <cn.com.hxx.fakewaterfall.CustomerView.banner.MyBanner
         android:id="@+id/myBanner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,5 +12,5 @@
         app:unselected_icon="@drawable/ic_banner_point_un"
         app:indicator_style="image">
 
-    </cn.com.hxx.fakewaterfall.myView.banner.MyBanner>
+    </cn.com.hxx.fakewaterfall.CustomerView.banner.MyBanner>
 </RelativeLayout>

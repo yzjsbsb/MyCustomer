@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <cn.com.hxx.fakewaterfall.myView.banner.modules.BannerViewPager
+    <cn.com.hxx.fakewaterfall.CustomerView.banner.modules.BannerViewPager
         android:id="@+id/vp_banner"
         android:layout_width="match_parent"
         android:layout_height="146dp">
 
-    </cn.com.hxx.fakewaterfall.myView.banner.modules.BannerViewPager>
+    </cn.com.hxx.fakewaterfall.CustomerView.banner.modules.BannerViewPager>
     <LinearLayout
         android:id="@+id/ll_indicator1"
         android:layout_alignBottom="@+id/vp_banner"
