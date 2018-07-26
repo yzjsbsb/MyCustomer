@@ -26,7 +26,7 @@ public class LeakActivity extends BaseActivity {
 
     Button btn1;
     WebView webView;
-    public static Info sInfo;       //泄漏方式1.静态变量Info会随着类的加载而消失，进程的结束而回收。因此LeakActivity销毁后，sInfo依然存在，其持有了LeakActivity的引用，造成内存泄漏
+    public static Info sInfo;       //泄漏方式1.静态变量Info会随着类的加载而消失，进程的结束而回收。因此LeakActivity销毁后，sInfo依然存在，其持有了LeakActivity的引用，造成内存泄漏，因此需要去掉static
     private MyHandler myHandler;    //方式2.如果要使用内部类，但又要规避内存泄露，一般都会采用静态内部类+弱引用的方式。onDestroy()时，调用myHandler.removeCallbacksAndMessages(null);
 
     @Override

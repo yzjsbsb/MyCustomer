@@ -22,9 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.com.hxx.fakewaterfall.R;
-import cn.com.hxx.fakewaterfall.myView.customerpopwin.CustomerPopWindow;
+import cn.com.hxx.fakewaterfall.designpattern.builder.CustomerPopWindow;
 import cn.com.hxx.fakewaterfall.myView.memoleak.LeakActivity;
-import cn.com.hxx.fakewaterfall.uti.MyActivityManager;
 import cn.com.hxx.fakewaterfall.uti.MyUtils;
 
 /**
@@ -229,16 +228,44 @@ public class CustomerViewFragment extends Fragment {
         btn_pop2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (popupWindow2 == null)return;
-                if (isShowPop2){
-                    popupWindow2.dismiss();
-                }else {
-                    popupWindow2.showAtLocation(rl_parent,Gravity.BOTTOM, 0, 0);
-                }
-                isShowPop2 = !isShowPop2;
+//                if (popupWindow2 == null)return;
+//                if (isShowPop2){
+//                    popupWindow2.dismiss();
+//                }else {
+//                    popupWindow2.showAtLocation(rl_parent,Gravity.BOTTOM, 0, 0);
+//                }
+//                isShowPop2 = !isShowPop2;
+
+
             }
         });
     }
+
+    public boolean isValid(String s){
+    //    String s = "[][]{}(){)(}";
+        char char1 = '(';
+        char char2 = ')';
+        char char3 = '{';
+        char char4 = '}';
+        char char5 = '[';
+        char char6 = ']';
+        if (s.length() % 2 != 0)return false;
+        char[] chars = s.toCharArray();
+//        for (int i = 0; i < chars.length/2 ; i++){
+//            if ((chars[i] == char1 && chars[chars.length - 1] != char2)
+//                    || (chars[i] == char3 && chars[chars.length - 1] != char4)
+//                    || (chars[i] == char5 && chars[chars.length - 1] != char6)){
+//
+//            }else if (chars[]){
+//
+//            }else {
+//
+//            }
+//        }
+        return false;
+    }
+
+
 
     public Runnable runnable = new Runnable() {
         @Override
