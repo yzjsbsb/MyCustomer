@@ -181,7 +181,7 @@ public class MyUtils {
         Log.e("HXX", str);
     }
 
-    public static void generateButton(final ViewGroup ll_container, final Context context, String methodTag, @Nullable final int fragmentContainer){
+    public static void generateButton(final ViewGroup ll_container, final Context context, String methodTag, @Nullable final int fragmentContainer, View viewDisappear){
         //利用反射获取所在类中"start"开头的方法
         List<Method> methodList = new ArrayList<>();
         for (Method method : context.getClass().getMethods()){
@@ -200,6 +200,7 @@ public class MyUtils {
                 }
             });
         }
+        final View viewDisappear1 = viewDisappear;
         //生成button并利用反射添加button点击效果
         for (final Method method : methodList){
             Button button = new Button(context);
@@ -216,6 +217,7 @@ public class MyUtils {
                             fragmentTransaction.add(fragmentContainer, fragment);
                             fragmentTransaction.addToBackStack("sdfasdf");   //按back时，不是activity销毁，而是fragment销毁
                             fragmentTransaction.commit();
+                            if (viewDisappear1 != null) viewDisappear1.setVisibility(View.INVISIBLE);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

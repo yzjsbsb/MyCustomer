@@ -16,6 +16,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import cn.com.hxx.fakewaterfall.CustomerView.CustomerViewActivity;
+import cn.com.hxx.fakewaterfall.FourComponents.FourComponentsActivity;
 import cn.com.hxx.fakewaterfall.MyAnotation.MyAnotation;
 import cn.com.hxx.fakewaterfall.base.BaseActivity;
 import cn.com.hxx.fakewaterfall.CustomerView.banner.MyBannerFragment;
@@ -50,7 +51,7 @@ public class MainActivity extends BaseActivity {
 
 
     private void initButton() {
-        MyUtils.generateButton(ll_container, this, "startMy", 0);
+        MyUtils.generateButton(ll_container, this, "startMy", 0, null);
     }
 
     @MyAnotation(order = 1)
@@ -61,5 +62,10 @@ public class MainActivity extends BaseActivity {
     @MyAnotation(order = 2)
     public void startMyDesignPatternActivity(){
         startActivity(new Intent(MainActivity.this, MyDesignPatternActivity.class));
+    }
+
+    @MyAnotation(order = 3)
+    public void startMyFourComponentsActivity(){
+        startActivity(new Intent(MainActivity.this, FourComponentsActivity.class));
     }
 }

@@ -46,10 +46,10 @@ public class ObserverFragment extends BaseFragment implements View.OnClickListen
         xiaoming = new User("小明");
         xiaohong = new User("小红");
         xiaoji = new User("小鸡");
-        btn_xiaoming = getActivity().findViewById(R.id.btn_xiaoming);
-        btn_xiaohong = getActivity().findViewById(R.id.btn_xiaohong);
-        btn_xiaoji = getActivity().findViewById(R.id.btn_xiaoji);
-        btn_publish = getActivity().findViewById(R.id.btn_publish);
+        btn_xiaoming = getView().findViewById(R.id.btn_xiaoming);
+        btn_xiaohong = getView().findViewById(R.id.btn_xiaohong);
+        btn_xiaoji = getView().findViewById(R.id.btn_xiaoji);
+        btn_publish = getView().findViewById(R.id.btn_publish);
 
         btn_xiaoming.setOnClickListener(this);
         btn_xiaohong.setOnClickListener(this);

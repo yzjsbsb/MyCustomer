@@ -45,7 +45,7 @@ public class MyDesignPatternActivity extends BaseActivity {
         scrollView = findViewById(R.id.scrollView);
         ll_container = findViewById(R.id.ll_container);
         fr_container = findViewById(R.id.fr_container);
-        MyUtils.generateButton(ll_container, this, "Pattern_", R.id.fr_container);
+        MyUtils.generateButton(ll_container, this, "Pattern_", R.id.fr_container, scrollView);
 
     }
 
@@ -57,11 +57,11 @@ public class MyDesignPatternActivity extends BaseActivity {
 
     @MyAnotation(order = 2)
     public void Pattern_Singleton(){
-        MyUtils.t(this, "看代码");
+        MyUtils.t(this, "看MyActivityManager.class");
     }
 
     @MyAnotation(order = 3)
     public void Pattern_Builder(){
-        MyUtils.t(this, "看代码");
+        MyUtils.t(this, "看CustomerPopWindow.class");
     }
 }

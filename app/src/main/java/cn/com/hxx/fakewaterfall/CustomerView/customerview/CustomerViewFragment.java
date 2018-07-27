@@ -19,7 +19,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Stack;
 
 import cn.com.hxx.fakewaterfall.R;
 import cn.com.hxx.fakewaterfall.designpattern.builder.CustomerPopWindow;
@@ -241,31 +243,25 @@ public class CustomerViewFragment extends Fragment {
         });
     }
 
-    public boolean isValid(String s){
-    //    String s = "[][]{}(){)(}";
-        char char1 = '(';
-        char char2 = ')';
-        char char3 = '{';
-        char char4 = '}';
-        char char5 = '[';
-        char char6 = ']';
-        if (s.length() % 2 != 0)return false;
-        char[] chars = s.toCharArray();
-//        for (int i = 0; i < chars.length/2 ; i++){
-//            if ((chars[i] == char1 && chars[chars.length - 1] != char2)
-//                    || (chars[i] == char3 && chars[chars.length - 1] != char4)
-//                    || (chars[i] == char5 && chars[chars.length - 1] != char6)){
-//
-//            }else if (chars[]){
-//
-//            }else {
-//
+//    public List<Interval> merge(List<Interval> intervals) {
+//        // write your code here
+//        List<Interval> list = new ArrayList<>();
+//        intervals.sort(new Comparator<Interval>() {
+//            @Override
+//            public int compare(Interval o1, Interval o2) {
+//                return 0;
 //            }
-//        }
-        return false;
+//        });
+//
+//    }
+
+    public class Interval {
+        int start, end;
+        Interval(int start, int end) {
+            this.start = start;
+            this.end = end;
     }
-
-
+ }
 
     public Runnable runnable = new Runnable() {
         @Override

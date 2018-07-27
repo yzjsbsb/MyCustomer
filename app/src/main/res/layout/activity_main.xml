@@ -5,15 +5,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/me_bg_color">
-    <ScrollView
+    <FrameLayout
+        android:id="@+id/fr_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout
-            android:id="@+id/ll_container"
+        <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-        </LinearLayout>
-    </ScrollView>
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:id="@+id/ll_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+
 </LinearLayout>
