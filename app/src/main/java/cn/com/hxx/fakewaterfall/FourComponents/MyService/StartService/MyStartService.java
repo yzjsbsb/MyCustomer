@@ -71,6 +71,7 @@ public class MyStartService extends Service {
         if (mediaPlayer != null ){
             mediaPlayer.stop();
         }
+        //stopSelf() 来自行停止运行或通过其他组件调用 stopService() 来停止服务。服务停止后，系统会将其销毁,因此stop之后start会重新生成MyStartService，重新onCreate()
         stopSelf();
     }
 

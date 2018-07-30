@@ -1,6 +1,5 @@
 package cn.com.hxx.fakewaterfall.FourComponents.MyService;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
@@ -9,14 +8,11 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
-import cn.com.hxx.fakewaterfall.CustomerView.CustomerViewActivity;
-import cn.com.hxx.fakewaterfall.FourComponents.FourComponentsActivity;
+import cn.com.hxx.fakewaterfall.FourComponents.MyService.BindService.MyBindServiceFragment;
 import cn.com.hxx.fakewaterfall.FourComponents.MyService.StartService.MyStartServiceFragemtn;
-import cn.com.hxx.fakewaterfall.MainActivity;
 import cn.com.hxx.fakewaterfall.MyAnotation.MyAnotation;
 import cn.com.hxx.fakewaterfall.R;
 import cn.com.hxx.fakewaterfall.base.BaseActivity;
-import cn.com.hxx.fakewaterfall.designpattern.MyDesignPatternActivity;
 import cn.com.hxx.fakewaterfall.uti.MyUtils;
 
 /**
@@ -64,5 +60,10 @@ public class MyServiceActivity extends BaseActivity {
     @MyAnotation(order = 1)
     public MyStartServiceFragemtn getMyStartServiceFragemtn(){
         return MyStartServiceFragemtn.getInstance();
+    }
+
+    @MyAnotation(order = 2)
+    public MyBindServiceFragment getMyBindServiceFragemtn(){
+        return MyBindServiceFragment.getInstance();
     }
 }
