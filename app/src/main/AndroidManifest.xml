@@ -34,6 +34,10 @@
                 <action android:name="BROADCAST_ACTION"/>
             </intent-filter>
         </receiver>
+
+        <provider
+            android:authorities="com.hxx.fakewater.bookprovider"
+            android:name=".FourComponents.MyContentProvider.MyBookProvider"/>
     </application>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
