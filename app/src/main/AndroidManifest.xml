@@ -25,10 +25,19 @@
         <service android:name=".FourComponents.MyService.StartService.MyStartService"
             android:exported="false"/>
         <service android:name=".FourComponents.MyService.BindService.MyBindService"/>
+
+        <receiver android:name=".FourComponents.MyBroadCastReciver.MyBroadCastReciver">
+            <!--一个intent-filter可以设置多个action-->
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="BROADCAST_ACTION"/>
+            </intent-filter>
+        </receiver>
     </application>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 
 </manifest>

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.LinearLayout;
 
+import cn.com.hxx.fakewaterfall.FourComponents.MyBroadCastReciver.MyBroadCastReciverFragment;
 import cn.com.hxx.fakewaterfall.FourComponents.MyService.MyServiceActivity;
 import cn.com.hxx.fakewaterfall.MyAnotation.MyAnotation;
 import cn.com.hxx.fakewaterfall.R;
@@ -38,5 +39,10 @@ public class FourComponentsActivity extends BaseActivity {
     @MyAnotation(order = 1)
     public void startMyServiceActivity(){
         startActivity(new Intent(this, MyServiceActivity.class));
+    }
+
+    @MyAnotation(order = 1)
+    public MyBroadCastReciverFragment startMyBroadCastReciverFragment(){
+        return MyBroadCastReciverFragment.getInstance();
     }
 }
