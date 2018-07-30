@@ -17,6 +17,7 @@ import java.util.List;
 
 import cn.com.hxx.fakewaterfall.CustomerView.CustomerViewActivity;
 import cn.com.hxx.fakewaterfall.FourComponents.FourComponentsActivity;
+import cn.com.hxx.fakewaterfall.Module.ModuleActivity;
 import cn.com.hxx.fakewaterfall.MyAnotation.MyAnotation;
 import cn.com.hxx.fakewaterfall.base.BaseActivity;
 import cn.com.hxx.fakewaterfall.CustomerView.banner.MyBannerFragment;
@@ -67,5 +68,10 @@ public class MainActivity extends BaseActivity {
     @MyAnotation(order = 3)
     public void startMyFourComponentsActivity(){
         startActivity(new Intent(MainActivity.this, FourComponentsActivity.class));
+    }
+
+    @MyAnotation(order = 4)
+    public void startMyModuleActivity(){
+        startActivity(new Intent(MainActivity.this, ModuleActivity.class));
     }
 }

@@ -21,6 +21,7 @@
         <activity android:name=".designpattern.MyDesignPatternActivity"/>
         <activity android:name=".FourComponents.FourComponentsActivity"/>
         <activity android:name=".FourComponents.MyService.MyServiceActivity"/>
+        <activity android:name=".Module.ModuleActivity"/>
 
         <service android:name=".FourComponents.MyService.StartService.MyStartService"
             android:exported="false"/>
