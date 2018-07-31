@@ -23,6 +23,7 @@
         <activity android:name=".FourComponents.FourComponentsActivity"/>
         <activity android:name=".FourComponents.MyService.MyServiceActivity"/>
         <activity android:name=".Module.ModuleActivity"/>
+        <activity android:name=".CustomerView.tablayout.MyTabLayoutActivity"/>
 
         <service android:name=".FourComponents.MyService.StartService.MyStartService"
             android:exported="false"/>

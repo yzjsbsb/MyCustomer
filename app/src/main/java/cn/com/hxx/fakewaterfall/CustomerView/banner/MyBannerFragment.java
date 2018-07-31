@@ -1,5 +1,6 @@
 package cn.com.hxx.fakewaterfall.CustomerView.banner;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.com.hxx.fakewaterfall.CustomerView.tablayout.MyTabLayout;
+import cn.com.hxx.fakewaterfall.CustomerView.tablayout.MyTabLayoutActivity;
 import cn.com.hxx.fakewaterfall.R;
 import cn.com.hxx.fakewaterfall.CustomerView.banner.imageloader.GlideImageViewLoader;
 import cn.com.hxx.fakewaterfall.uti.httputil.HttpResult;
@@ -49,6 +52,12 @@ public class MyBannerFragment extends Fragment {
 
     private void initView() {
         myBanner = getActivity().findViewById(R.id.myBanner);
+        getView().findViewById(R.id.btn_startTablayout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), MyTabLayoutActivity.class));
+            }
+        });
     }
 
     private void getData() {

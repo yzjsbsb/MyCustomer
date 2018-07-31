@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
     <cn.com.hxx.fakewaterfall.CustomerView.banner.MyBanner
         android:id="@+id/myBanner"
         android:layout_width="match_parent"
@@ -13,4 +15,10 @@
         app:indicator_style="image">
 
     </cn.com.hxx.fakewaterfall.CustomerView.banner.MyBanner>
-</RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_startTablayout"
+        android:text="startTabLayoutActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>
