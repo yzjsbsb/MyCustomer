@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import cn.com.hxx.fakewaterfall.Module.Handler.MyHandlerFragment;
+import cn.com.hxx.fakewaterfall.Module.Http.MyHttpFragment;
 import cn.com.hxx.fakewaterfall.MyAnotation.MyAnotation;
 import cn.com.hxx.fakewaterfall.R;
 import cn.com.hxx.fakewaterfall.base.BaseActivity;
@@ -59,5 +60,10 @@ public class ModuleActivity extends BaseActivity {
     @MyAnotation(order = 1)
     public MyHandlerFragment startMyMyHandlerFragment(){
         return MyHandlerFragment.getInstance();
+    }
+
+    @MyAnotation(order = 2)
+    public MyHttpFragment startMyHttpFragment(){
+        return new MyHttpFragment();
     }
 }
