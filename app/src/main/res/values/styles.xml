@@ -86,5 +86,7 @@
     <!--tablayout-->
     <declare-styleable name="MyTabLayout">
         <attr name="itemSize" format="integer"/>
+        <attr name="color_selected" format="color" />
+        <attr name="color_unselected" format="color" />
     </declare-styleable>
 </resources>

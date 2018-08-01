@@ -3,6 +3,10 @@ package cn.com.hxx.fakewaterfall.CustomerView.tablayout;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -10,6 +14,7 @@ import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,15 +28,29 @@ import cn.com.hxx.fakewaterfall.R;
  * Created by apple on 2018/7/31.
  */
 
-public class MyTabLayout extends LinearLayout {
+public class MyTabLayout extends FrameLayout {
 
     private List<TabDate> tabDateList;
     private Context context;
     private DisplayMetrics dm;
     private ViewPager viewPager;
     private List<LinearLayout> childLayoutList = new ArrayList<>();
+    private int color_selected = Color.BLACK;
+    private int color_unselected = Color.GRAY;
+    private int mUnderlineColor = Color.RED;
+    private float mUnderlineHeight = 5;
+
+    private LinearLayout container;
+
+    /** 用于绘制显示器 */
+    private Rect mIndicatorRect = new Rect();
+    private GradientDrawable mIndicatorDrawable = new GradientDrawable();
+
+    private Paint mRectPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     private int defautItemSize; //icon的宽高
+
+    private int currentItem;
 
     public MyTabLayout(Context context) {
         super(context);
@@ -46,16 +65,20 @@ public class MyTabLayout extends LinearLayout {
     public MyTabLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.context = context;
+        setWillNotDraw(false);//onDraw会被调用
+        container = new LinearLayout(context);
+        container.setOrientation(LinearLayout.HORIZONTAL);
+        addView(container);
         initAttrs(attrs);
     }
 
     private void initAttrs(AttributeSet attrs) {
-        setOrientation(HORIZONTAL);
         dm = context.getResources().getDisplayMetrics();
         defautItemSize = dm.widthPixels/10;
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.MyTabLayout);
         defautItemSize = ta.getInteger(R.styleable.MyTabLayout_itemSize, defautItemSize);
-
+        color_selected = ta.getColor(R.styleable.MyTabLayout_color_selected, color_selected);
+        color_unselected = ta.getColor(R.styleable.MyTabLayout_color_unselected, color_unselected);
         ta.recycle();
     }
 
@@ -76,27 +99,35 @@ public class MyTabLayout extends LinearLayout {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        int paddingLeft = getPaddingLeft();
+        int height = getHeight();
+// draw underline
+        mRectPaint.setColor(mUnderlineColor);
+        int itemWidth = container.getWidth()/tabDateList.size();
+        canvas.drawRect(currentItem * itemWidth, height - mUnderlineHeight, (currentItem +1)*itemWidth, height, mRectPaint);
     }
 
 
     public void setTabDate(List<TabDate> tabDates){
         tabDateList = tabDates;
+        currentItem = 0;
         for(int i = 0; i < tabDateList.size(); i++){
             LinearLayout linearLayout = new LinearLayout(getContext());
-            linearLayout.setOrientation(VERTICAL);
+            linearLayout.setOrientation(LinearLayout.VERTICAL);
             linearLayout.setGravity(Gravity.CENTER_HORIZONTAL);
             ImageView imageView = new ImageView(getContext());
             imageView.setImageResource(i == 0 ? tabDateList.get(i).getDra_selected() : tabDateList.get(i).getDra_un_selected());
             TextView textView = new TextView(getContext());
+            textView.setTextColor(i == 0 ? color_selected : color_unselected);
             textView.setGravity(Gravity.CENTER_HORIZONTAL);
             textView.setText(tabDateList.get(i).getTitle());
             linearLayout.addView(imageView);
             linearLayout.addView(textView);
-            LinearLayout.LayoutParams layoutParams = (LayoutParams) imageView.getLayoutParams();
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
             layoutParams.height = defautItemSize;
             layoutParams.width = defautItemSize;
             //addview之后会调用onMeasure
-            addView(linearLayout, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
+            container.addView(linearLayout, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
             final int index = i;
             linearLayout.setOnClickListener(new OnClickListener() {
                 @Override
@@ -119,6 +150,7 @@ public class MyTabLayout extends LinearLayout {
             @Override
             public void onPageSelected(int position) {
                 changeColor(position);
+                invalidate();//调用ondraw();
             }
 
             @Override
@@ -153,13 +185,17 @@ public class MyTabLayout extends LinearLayout {
 //            imageViewRight = (ImageView) childLayoutList.get(index - 1).getChildAt(0);
 //            imageViewRight.setImageResource(tabDateList.get(index - 1).getDra_selected());
 //        }
-
+        currentItem = index;
         for (int i = 0; i < childLayoutList.size(); i++){
             ImageView imageView = (ImageView) childLayoutList.get(i).getChildAt(0);
+            TextView title = (TextView) childLayoutList.get(i).getChildAt(1);
             if (i == index){
                 imageView.setImageResource(tabDateList.get(i).getDra_selected());
+                title.setTextColor(color_selected);
             }else {
                 imageView.setImageResource(tabDateList.get(i).getDra_un_selected());
+                title.setTextColor(color_unselected);
+
             }
         }
     }
