@@ -1,5 +1,7 @@
 package cn.com.hxx.fakewaterfall.CustomerView.tablayout;
 
+import android.animation.TypeEvaluator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -14,6 +16,7 @@ import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,7 +31,7 @@ import cn.com.hxx.fakewaterfall.R;
  * Created by apple on 2018/7/31.
  */
 
-public class MyTabLayout extends FrameLayout {
+public class MyTabLayout extends FrameLayout implements ValueAnimator.AnimatorUpdateListener {
 
     private List<TabDate> tabDateList;
     private Context context;
@@ -39,6 +42,7 @@ public class MyTabLayout extends FrameLayout {
     private int color_unselected = Color.GRAY;
     private int mUnderlineColor = Color.RED;
     private float mUnderlineHeight = 5;
+    private int itemWidth;
 
     private LinearLayout container;
 
@@ -51,6 +55,13 @@ public class MyTabLayout extends FrameLayout {
     private int defautItemSize; //icon的宽高
 
     private int currentItem;
+    private int lastItem;
+
+    /*indicator动画*/
+    private ValueAnimator mValueAnimator;
+    private OvershootInterpolator mInterpolator = new OvershootInterpolator(1.5f);
+
+    private long mIndicatorAnimDuration = 350l;//动画持续时间
 
     public MyTabLayout(Context context) {
         super(context);
@@ -68,6 +79,8 @@ public class MyTabLayout extends FrameLayout {
         setWillNotDraw(false);//onDraw会被调用
         container = new LinearLayout(context);
         container.setOrientation(LinearLayout.HORIZONTAL);
+        mValueAnimator = ValueAnimator.ofObject(new PointEvaluator(), mLastP, mCurrentP);
+        mValueAnimator.addUpdateListener(this);
         addView(container);
         initAttrs(attrs);
     }
@@ -103,7 +116,7 @@ public class MyTabLayout extends FrameLayout {
         int height = getHeight();
 // draw underline
         mRectPaint.setColor(mUnderlineColor);
-        int itemWidth = container.getWidth()/tabDateList.size();
+        itemWidth = container.getWidth()/tabDateList.size();
         canvas.drawRect(currentItem * itemWidth, height - mUnderlineHeight, (currentItem +1)*itemWidth, height, mRectPaint);
     }
 
@@ -150,7 +163,6 @@ public class MyTabLayout extends FrameLayout {
             @Override
             public void onPageSelected(int position) {
                 changeColor(position);
-                invalidate();//调用ondraw();
             }
 
             @Override
@@ -185,6 +197,7 @@ public class MyTabLayout extends FrameLayout {
 //            imageViewRight = (ImageView) childLayoutList.get(index - 1).getChildAt(0);
 //            imageViewRight.setImageResource(tabDateList.get(index - 1).getDra_selected());
 //        }
+        lastItem = currentItem;
         currentItem = index;
         for (int i = 0; i < childLayoutList.size(); i++){
             ImageView imageView = (ImageView) childLayoutList.get(i).getChildAt(0);
@@ -198,5 +211,64 @@ public class MyTabLayout extends FrameLayout {
 
             }
         }
+        calcOffset();
+    }
+
+
+    private void calcOffset() {
+        final View currentTabView = container.getChildAt(currentItem);
+        mCurrentP.left = currentTabView.getLeft();
+        mCurrentP.right = currentTabView.getRight();
+
+        final View lastTabView = container.getChildAt(lastItem);
+        mLastP.left = lastTabView.getLeft();
+        mLastP.right = lastTabView.getRight();
+
+//        Log.d("AAA", "mLastP--->" + mLastP.left + "&" + mLastP.right);
+//        Log.d("AAA", "mCurrentP--->" + mCurrentP.left + "&" + mCurrentP.right);
+        if (mLastP.left == mCurrentP.left && mLastP.right == mCurrentP.right) {
+            invalidate();
+        } else {
+            mValueAnimator.setObjectValues(mLastP, mCurrentP);
+
+            mValueAnimator.setInterpolator(mInterpolator);
+            mValueAnimator.setDuration(mIndicatorAnimDuration);
+            mValueAnimator.start();
+        }
+    }
+
+    @Override
+    public void onAnimationUpdate(ValueAnimator animation) {
+        View currentTabView = container.getChildAt(currentItem);
+        IndicatorPoint p = (IndicatorPoint) animation.getAnimatedValue();
+        mIndicatorRect.left = (int) p.left;
+        mIndicatorRect.right = (int) p.right;
+
+        float indicatorLeft = p.left + (currentTabView.getWidth() - itemWidth) / 2;
+
+        mIndicatorRect.left = (int) indicatorLeft;
+        mIndicatorRect.right = (int) (mIndicatorRect.left + itemWidth);
+        invalidate();
+    }
+
+
+    private IndicatorPoint mCurrentP = new IndicatorPoint();
+    private IndicatorPoint mLastP = new IndicatorPoint();
+
+    class PointEvaluator implements TypeEvaluator<IndicatorPoint> {
+        @Override
+        public IndicatorPoint evaluate(float fraction, IndicatorPoint startValue, IndicatorPoint endValue) {
+            float left = startValue.left + fraction * (endValue.left - startValue.left);
+            float right = startValue.right + fraction * (endValue.right - startValue.right);
+            IndicatorPoint point = new IndicatorPoint();
+            point.left = left;
+            point.right = right;
+            return point;
+        }
+    }
+
+    class IndicatorPoint {
+        public float left;
+        public float right;
     }
 }
