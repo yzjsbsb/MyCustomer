@@ -121,7 +121,7 @@ public class MyTabLayout extends FrameLayout implements ValueAnimator.AnimatorUp
         bottomLineIndicatorWidth = Math.min(bottomLineIndicatorWidth, perWidthItem);
         float lineMarginLeftInItem = (perWidthItem - bottomLineIndicatorWidth)/2;
         float lineMarginLeft = currentItem * perWidthItem + lineMarginLeftInItem;
-        canvas.drawRect(lineMarginLeft, height - mUnderlineHeight, lineMarginLeft + bottomLineIndicatorWidth, height, mRectPaint);
+        canvas.drawRect(mIndicatorRect.left, height - mUnderlineHeight, mIndicatorRect.right, height, mRectPaint);
     }
 
 
@@ -241,6 +241,7 @@ public class MyTabLayout extends FrameLayout implements ValueAnimator.AnimatorUp
         }
     }
 
+    //当动画的属性更新时（不严谨的说，即每过 10 毫秒，动画的完成度更新时），这个方法被调用
     @Override
     public void onAnimationUpdate(ValueAnimator animation) {
         View currentTabView = container.getChildAt(currentItem);

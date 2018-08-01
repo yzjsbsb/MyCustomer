@@ -42,10 +42,14 @@ public class MyTabLayoutActivity extends BaseActivity {
         mytablayout = findViewById(R.id.mytablayout);
         tabDateList.add(new TabDate(R.drawable.indent, R.drawable.indent_un, "first"));
         tabDateList.add(new TabDate(R.drawable.invite, R.drawable.invite_un, "second"));
+        tabDateList.add(new TabDate(R.drawable.indent, R.drawable.indent_un, "third"));
+        tabDateList.add(new TabDate(R.drawable.invite, R.drawable.invite_un, "forth"));
         mytablayout.setTabDate(tabDateList);
     }
 
     private void initAdapter() {
+        fragmentList.add(new MyHttpFragment());
+        fragmentList.add(MyContentProviderFragment.getInstance());
         fragmentList.add(new MyHttpFragment());
         fragmentList.add(MyContentProviderFragment.getInstance());
         MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter(getSupportFragmentManager(), fragmentList);
