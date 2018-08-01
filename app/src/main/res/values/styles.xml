@@ -88,5 +88,6 @@
         <attr name="itemSize" format="integer"/>
         <attr name="color_selected" format="color" />
         <attr name="color_unselected" format="color" />
+        <attr name="bottomLineIndicatorWidth" format="dimension" />
     </declare-styleable>
 </resources>

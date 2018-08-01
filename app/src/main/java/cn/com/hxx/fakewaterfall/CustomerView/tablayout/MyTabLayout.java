@@ -42,7 +42,7 @@ public class MyTabLayout extends FrameLayout implements ValueAnimator.AnimatorUp
     private int color_unselected = Color.GRAY;
     private int mUnderlineColor = Color.RED;
     private float mUnderlineHeight = 5;
-    private int itemWidth;
+    private float bottomLineIndicatorWidth = dp2px(20);
 
     private LinearLayout container;
 
@@ -92,6 +92,7 @@ public class MyTabLayout extends FrameLayout implements ValueAnimator.AnimatorUp
         defautItemSize = ta.getInteger(R.styleable.MyTabLayout_itemSize, defautItemSize);
         color_selected = ta.getColor(R.styleable.MyTabLayout_color_selected, color_selected);
         color_unselected = ta.getColor(R.styleable.MyTabLayout_color_unselected, color_unselected);
+        bottomLineIndicatorWidth = ta.getDimension(R.styleable.MyTabLayout_bottomLineIndicatorWidth, bottomLineIndicatorWidth);
         ta.recycle();
     }
 
@@ -114,10 +115,13 @@ public class MyTabLayout extends FrameLayout implements ValueAnimator.AnimatorUp
         super.onDraw(canvas);
         int paddingLeft = getPaddingLeft();
         int height = getHeight();
-// draw underline
+        // draw underline
         mRectPaint.setColor(mUnderlineColor);
-        itemWidth = container.getWidth()/tabDateList.size();
-        canvas.drawRect(currentItem * itemWidth, height - mUnderlineHeight, (currentItem +1)*itemWidth, height, mRectPaint);
+        int perWidthItem = container.getWidth()/tabDateList.size();
+        bottomLineIndicatorWidth = Math.min(bottomLineIndicatorWidth, perWidthItem);
+        float lineMarginLeftInItem = (perWidthItem - bottomLineIndicatorWidth)/2;
+        float lineMarginLeft = currentItem * perWidthItem + lineMarginLeftInItem;
+        canvas.drawRect(lineMarginLeft, height - mUnderlineHeight, lineMarginLeft + bottomLineIndicatorWidth, height, mRectPaint);
     }
 
 
@@ -244,10 +248,10 @@ public class MyTabLayout extends FrameLayout implements ValueAnimator.AnimatorUp
         mIndicatorRect.left = (int) p.left;
         mIndicatorRect.right = (int) p.right;
 
-        float indicatorLeft = p.left + (currentTabView.getWidth() - itemWidth) / 2;
+        float indicatorLeft = p.left + (currentTabView.getWidth() - bottomLineIndicatorWidth) / 2;
 
         mIndicatorRect.left = (int) indicatorLeft;
-        mIndicatorRect.right = (int) (mIndicatorRect.left + itemWidth);
+        mIndicatorRect.right = (int) (mIndicatorRect.left + bottomLineIndicatorWidth);
         invalidate();
     }
 
@@ -270,5 +274,15 @@ public class MyTabLayout extends FrameLayout implements ValueAnimator.AnimatorUp
     class IndicatorPoint {
         public float left;
         public float right;
+    }
+
+    protected int dp2px(float dp) {
+        final float scale = getContext().getResources().getDisplayMetrics().density;
+        return (int) (dp * scale + 0.5f);
+    }
+
+    protected int sp2px(float sp) {
+        final float scale = getContext().getResources().getDisplayMetrics().scaledDensity;
+        return (int) (sp * scale + 0.5f);
     }
 }
