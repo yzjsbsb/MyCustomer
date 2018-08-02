@@ -253,13 +253,14 @@ public class MyTabLayout extends FrameLayout implements ValueAnimator.AnimatorUp
 
         mIndicatorRect.left = (int) indicatorLeft;
         mIndicatorRect.right = (int) (mIndicatorRect.left + bottomLineIndicatorWidth);
-        invalidate();
+        invalidate();//根据动画完成情况实时绘制indicator的位置
     }
 
 
     private IndicatorPoint mCurrentP = new IndicatorPoint();
     private IndicatorPoint mLastP = new IndicatorPoint();
 
+    //时间完成度与动画完成度的关系计算
     class PointEvaluator implements TypeEvaluator<IndicatorPoint> {
         @Override
         public IndicatorPoint evaluate(float fraction, IndicatorPoint startValue, IndicatorPoint endValue) {

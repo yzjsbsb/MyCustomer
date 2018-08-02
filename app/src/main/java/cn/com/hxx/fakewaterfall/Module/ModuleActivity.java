@@ -1,5 +1,6 @@
 package cn.com.hxx.fakewaterfall.Module;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
@@ -10,6 +11,7 @@ import android.widget.ScrollView;
 
 import cn.com.hxx.fakewaterfall.Module.Handler.MyHandlerFragment;
 import cn.com.hxx.fakewaterfall.Module.Http.MyHttpFragment;
+import cn.com.hxx.fakewaterfall.Module.Scheme.MyToSchemeActivity;
 import cn.com.hxx.fakewaterfall.MyAnotation.MyAnotation;
 import cn.com.hxx.fakewaterfall.R;
 import cn.com.hxx.fakewaterfall.base.BaseActivity;
@@ -65,5 +67,10 @@ public class ModuleActivity extends BaseActivity {
     @MyAnotation(order = 2)
     public MyHttpFragment startMyHttpFragment(){
         return new MyHttpFragment();
+    }
+
+    @MyAnotation(order = 3)
+    public void startMyToSchemeActivity(){
+        startActivity(new Intent(this, MyToSchemeActivity.class));
     }
 }

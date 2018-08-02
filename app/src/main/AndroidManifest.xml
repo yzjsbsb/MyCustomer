@@ -24,10 +24,28 @@
         <activity android:name=".FourComponents.MyService.MyServiceActivity"/>
         <activity android:name=".Module.ModuleActivity"/>
         <activity android:name=".CustomerView.tablayout.MyTabLayoutActivity"/>
+        <activity android:name=".Module.Scheme.MySchemeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!--跳转所需Scheme   myscheme://www.hxxchina.com:8080/mypath?key=mykey-->
+                <data android:scheme="myschememe" android:host="www.hxxchina.com"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".Module.Scheme.MyToSchemeActivity" />
+
+
+
+
 
         <service android:name=".FourComponents.MyService.StartService.MyStartService"
             android:exported="false"/>
         <service android:name=".FourComponents.MyService.BindService.MyBindService"/>
+
+
+
 
         <receiver android:name=".FourComponents.MyBroadCastReciver.MyBroadCastReciver">
             <!--一个intent-filter可以设置多个action-->
@@ -36,6 +54,9 @@
                 <action android:name="BROADCAST_ACTION"/>
             </intent-filter>
         </receiver>
+
+
+
 
         <provider
             android:authorities="com.hxx.fakewater.bookprovider"
