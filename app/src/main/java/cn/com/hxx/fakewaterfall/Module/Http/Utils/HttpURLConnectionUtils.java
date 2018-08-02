@@ -1,6 +1,8 @@
 package cn.com.hxx.fakewaterfall.Module.Http.Utils;
 
 import android.accounts.NetworkErrorException;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -46,6 +48,38 @@ public class HttpURLConnectionUtils {
         }
         return null;
     }
+
+    public static Bitmap downLoadPic(String path){
+        HttpURLConnection httpURLConnection = null;
+        try {
+            URL url = new URL(path);
+            httpURLConnection = (HttpURLConnection) url.openConnection();
+            //设置请求方法，默认是GET
+            httpURLConnection.setRequestMethod("GET");
+            //设置字符集
+            httpURLConnection.setRequestProperty("Charset", "UTF-8");
+            //从主机读取数据的超时时间
+            httpURLConnection.setReadTimeout(5000);
+            //连接主机的超时时间
+            httpURLConnection.setConnectTimeout(10000);
+            int responseCode = httpURLConnection.getResponseCode(); //调用getResponseCode就不需要调用connect了
+            if (responseCode == 200){
+                InputStream inputStream = httpURLConnection.getInputStream();
+                return BitmapFactory.decodeStream(inputStream);
+            }else {
+                throw new NetworkErrorException("RESPONSE_CODE IS" + responseCode);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (httpURLConnection != null){
+                httpURLConnection.disconnect();// 关闭连接
+            }
+        }
+        return null;
+    }
+
+
 
     public static String post(String path, String data){
         HttpURLConnection httpURLConnection = null;

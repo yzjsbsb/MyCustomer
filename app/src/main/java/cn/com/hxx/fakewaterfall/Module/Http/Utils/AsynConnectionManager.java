@@ -1,5 +1,6 @@
 package cn.com.hxx.fakewaterfall.Module.Http.Utils;
 
+import android.graphics.Bitmap;
 import android.os.Handler;
 
 import java.net.HttpURLConnection;
@@ -53,8 +54,27 @@ public class AsynConnectionManager {
         }).start();
     }
 
+    public static void downLoadPic(final String url, final CallBack callBack){
 
-    public interface CallBack{
-        public void onSucces(String reponse);
+        final Handler handler = new Handler();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final Bitmap content = HttpURLConnectionUtils.downLoadPic(url);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        //在主线程进行操作
+                        callBack.onSucces(content);
+                    }
+                });
+            }
+        }).start();
+    }
+
+
+    public interface CallBack<T>{
+        public void onSucces(T reponse);
     }
 }

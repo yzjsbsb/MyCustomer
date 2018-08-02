@@ -11,6 +11,7 @@ import android.widget.ScrollView;
 
 import cn.com.hxx.fakewaterfall.Module.Handler.MyHandlerFragment;
 import cn.com.hxx.fakewaterfall.Module.Http.MyHttpFragment;
+import cn.com.hxx.fakewaterfall.Module.LruCache.MyLruCacheFragment;
 import cn.com.hxx.fakewaterfall.Module.Scheme.MyToSchemeActivity;
 import cn.com.hxx.fakewaterfall.MyAnotation.MyAnotation;
 import cn.com.hxx.fakewaterfall.R;
@@ -72,5 +73,10 @@ public class ModuleActivity extends BaseActivity {
     @MyAnotation(order = 3)
     public void startMyToSchemeActivity(){
         startActivity(new Intent(this, MyToSchemeActivity.class));
+    }
+
+    @MyAnotation(order = 4)
+    public MyLruCacheFragment startMyLruCacheFragment(){
+        return new MyLruCacheFragment();
     }
 }

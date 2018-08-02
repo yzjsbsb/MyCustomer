@@ -37,7 +37,7 @@ public class MyHttpFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 tv_content.setText(" ");
-                AsynConnectionManager.get(URL, new AsynConnectionManager.CallBack() {
+                AsynConnectionManager.get(URL, new AsynConnectionManager.CallBack<String>() {
                     @Override
                     public void onSucces(String reponse) {
                         tv_content.setText(reponse);
