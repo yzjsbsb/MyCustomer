@@ -3,7 +3,10 @@ package cn.com.hxx.fakewaterfall.uti;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -27,6 +30,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
+import java.io.File;
 import java.lang.reflect.Method;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -231,7 +235,7 @@ public class MyUtils {
     }
 
 
-    public String getMD5String(String key) {
+    public static String getMD5String(String key) {
         String cacheKey;
         try {
             final MessageDigest mDigest = MessageDigest.getInstance("MD5");
@@ -243,7 +247,7 @@ public class MyUtils {
         return cacheKey;
     }
 
-    private String bytesToHexString(byte[] bytes) {
+    private static String bytesToHexString(byte[] bytes) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < bytes.length; i++) {
             String hex = Integer.toHexString(0xFF & bytes[i]);
@@ -253,5 +257,29 @@ public class MyUtils {
             sb.append(hex);
         }
         return sb.toString();
+    }
+
+
+    public static int getAppVersion(Context context) {
+        try {
+            PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            return info.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return 1;
+    }
+
+
+    public static File getDiskCacheDir(Context context, String uniqueName) {
+        String cachePath;
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) || !Environment.isExternalStorageRemovable()) {
+            ///sdcard/Android/data/application package/cache
+            cachePath = context.getExternalCacheDir().getPath();
+        } else {
+            // /data/data/application package/cache
+            cachePath = context.getCacheDir().getPath();
+        }
+        return new File(cachePath + File.separator + uniqueName);
     }
 }
