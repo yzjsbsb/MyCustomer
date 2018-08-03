@@ -48,6 +48,8 @@ public class MainActivity extends BaseActivity {
 
     private void initView() {
         ll_container = findViewById(R.id.ll_container);
+
+        
     }
 
 
